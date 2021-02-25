@@ -1,0 +1,7 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+
+world.cepi.momentum
+world.cepi.momentum.ability
+world.cepi.momentum.command
+
