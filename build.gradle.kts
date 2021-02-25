@@ -37,6 +37,9 @@ dependencies {
     // Compile Minestom into project
     compileOnly("com.github.Minestom:Minestom:-SNAPSHOT")
 
+    // KStom
+    compileOnly("com.github.Project-Cepi:KStom:dd506bada0")
+
     // OkHttp
     compileOnly("com.squareup.okhttp3", "okhttp", "4.9.0")
 
@@ -50,15 +53,23 @@ tasks.withType<Test> {
 
 tasks {
     named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJar") {
-        archiveBaseName.set("example")
+        archiveBaseName.set(project.name)
         mergeServiceFiles()
         minimize()
 
     }
 
+    processResources {
+        filesMatching("extension.json") {
+            expand(project.properties)
+        }
+    }
+
     test { useJUnitPlatform() }
 
-    build { dependsOn(shadowJar) }
+    build {
+        dependsOn(shadowJar)
+    }
 
 }
 
