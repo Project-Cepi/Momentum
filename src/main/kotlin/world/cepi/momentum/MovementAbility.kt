@@ -5,17 +5,19 @@ import net.minestom.server.entity.Player
 /**
  * Abstract framework for movement abilities.
  */
-abstract class MovementAbility() {
+abstract class MovementAbility {
 
     /**
      * Gets the name of this movement ability.
      */
-    open fun getName(): String = this.javaClass.simpleName
+    open val name: String
+        get() = this.javaClass.simpleName
 
     /**
      * Gets the description of this movement ability.
      */
-    open fun getDescription(): String = ""
+    open val description: String
+        get() = ""
 
     /**
      * Called when the movement ability is initialised.

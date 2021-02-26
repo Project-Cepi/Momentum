@@ -1,5 +1,7 @@
 package world.cepi.momentum.ability
 
+import it.unimi.dsi.fastutil.objects.Object2LongMap
+import it.unimi.dsi.fastutil.objects.Object2LongOpenHashMap
 import net.minestom.server.MinecraftServer
 import net.minestom.server.entity.Player
 import net.minestom.server.event.EventCallback
@@ -11,14 +13,13 @@ import net.minestom.server.utils.Vector
 import world.cepi.kstom.addEventCallback
 import world.cepi.momentum.MovementAbility
 import java.util.*
-import kotlin.collections.HashMap
 import kotlin.collections.HashSet
 
 class SuperJump : MovementAbility(), EventCallback<PlayerMoveEvent> {
     private val players = HashSet<UUID>()
-    private val sneakingTime = HashMap<UUID, Long>()
+    private val sneakingTime: Object2LongMap<UUID> = Object2LongOpenHashMap()
 
-    override fun getDescription(): String = """
+    override val description: String = """
         Holding shift whilst on the ground will "charge" the super jump. When you release
         shift you will be launched into the air a certain amount dependent on how long you
         were shifting for. Moving whilst charging the super jump will cancel the jump.
@@ -38,12 +39,10 @@ class SuperJump : MovementAbility(), EventCallback<PlayerMoveEvent> {
     }
 
     private fun performSuperJump(player: Player) {
-        sneakingTime.remove(player.uuid).let {
-            if (it != null) {
-                val vector = getMultiplier(System.currentTimeMillis() - it)
-                player.sendMessage(vector.toString())
-                player.velocity = vector
-            }
+        sneakingTime.removeLong(player.uuid).let {
+            val vector = getMultiplier(System.currentTimeMillis() - it)
+            player.sendMessage(vector.toString())
+            player.velocity = vector
         }
     }
 
@@ -65,7 +64,7 @@ class SuperJump : MovementAbility(), EventCallback<PlayerMoveEvent> {
     }
 
     override fun remove(player: Player) {
-        sneakingTime.remove(player.uuid)
+        sneakingTime.removeLong(player.uuid)
         players.remove(player.uuid)
         player.removeEventCallback(PlayerMoveEvent::class.java, ::run)
     }
@@ -73,7 +72,7 @@ class SuperJump : MovementAbility(), EventCallback<PlayerMoveEvent> {
     override fun run(event: PlayerMoveEvent) {
         // cancel super jump on move todo check if we want to do this - make it configurable?
         if (!event.newPosition.isSimilar(event.player.position)) {
-            sneakingTime.remove(event.player.uuid)
+            sneakingTime.removeLong(event.player.uuid)
         }
     }
 }

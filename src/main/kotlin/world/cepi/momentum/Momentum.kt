@@ -16,7 +16,7 @@ object Momentum : Extension() {
         // register commands
         MinecraftServer.getCommandManager().register(MovementCommand())
 
-        logger.info("[Momentum] Extension enabled - ${abilityManager.getAbilities().size} abilities loaded!");
+        logger.info("[Momentum] Extension enabled - ${abilityManager.abilities.size} abilities loaded!")
     }
 
     override fun terminate() {

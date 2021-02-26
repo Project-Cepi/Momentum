@@ -11,9 +11,9 @@ import net.minestom.server.utils.time.TimeUnit
 import world.cepi.kstom.addEventCallback
 import world.cepi.momentum.MovementAbility
 
-class RockPillar() : MovementAbility(), EventCallback<PlayerStartFlyingEvent> {
+class RockPillar : MovementAbility(), EventCallback<PlayerStartFlyingEvent> {
 
-    override fun getDescription(): String = """
+    override val description: String = """
         By double tapping the space bar (the default way to toggle flying in vanilla), a
         pillar of rock will appear beneath the player, propelling them upwards. Shortly
         afterwards, the pillar will disappear.

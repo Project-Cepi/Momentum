@@ -10,7 +10,7 @@ class AbilityManager(vararg abilities: MovementAbility) {
 
     init {
         abilities.iterator().forEachRemaining {
-            abilityNames[it.getName()] = it
+            abilityNames[it.name] = it
             it.initialise()
         }
     }
@@ -19,21 +19,22 @@ class AbilityManager(vararg abilities: MovementAbility) {
      * Gets a collection of all currently loaded abilities.
      * @return the abilities
      */
-    fun getAbilities(): Collection<MovementAbility> = abilityNames.values
+    val abilities: Collection<MovementAbility>
+        get() = abilityNames.values
 
     /**
      * Gets an ability by it's name.
      * @param name the name of the ability
      * @return the ability, or `null` if it does not exist
      */
-    fun getAbility(name: String): MovementAbility? = abilityNames[name]
+    operator fun get(name: String): MovementAbility? = abilityNames[name]
 
     /**
      * Gets the current ability a player has active, if any.
      * @param player the player
      * @return their current ability, or `null` if they do not have one active
      */
-    fun getAbility(player: Player): MovementAbility? {
+    operator fun get(player: Player): MovementAbility? {
         with(playerAbilities[player.uuid]) {
             return if (this == null) {
                 null
@@ -48,26 +49,27 @@ class AbilityManager(vararg abilities: MovementAbility) {
      * @param player the player
      * @param ability the ability
      */
-    fun setAbility(player: Player, ability: MovementAbility) {
+    operator fun set(player: Player, ability: MovementAbility?) {
         // first remove the existing ability, if any
         playerAbilities[player.uuid]?.let {
             abilityNames[it]?.remove(player)
         }
 
-        // now reapply the new ability and save it
-        ability.apply(player)
-        playerAbilities[player.uuid] = ability.getName()
+        // If the ability is null then there is no need to do anything else
+        if (ability != null) {
+            // now reapply the new ability and save it
+            ability.apply(player)
+            playerAbilities[player.uuid] = ability.name
+        }
     }
 }
 
 /**
- * Gets the current ability this player has active, if any.
+ * The current ability this player has active, if any.
  * @return their current ability, or `null` if they do not have one active
  */
-fun Player.getAbility(): MovementAbility? = Momentum.abilityManager.getAbility(this)
-
-/**
- * Sets the ability for this player.
- * @param ability the ability
- */
-fun Player.setAbility(ability: MovementAbility) = Momentum.abilityManager.setAbility(this, ability)
+var Player.ability: MovementAbility?
+    get() = Momentum.abilityManager[this]
+    set(ability) {
+        Momentum.abilityManager[this] = ability
+    }
