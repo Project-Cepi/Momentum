@@ -13,9 +13,8 @@ import net.minestom.server.utils.Vector
 import world.cepi.kstom.addEventCallback
 import world.cepi.momentum.MovementAbility
 import java.util.*
-import kotlin.collections.HashSet
 
-class SuperJump : MovementAbility(), EventCallback<PlayerMoveEvent> {
+object SuperJump : MovementAbility(), EventCallback<PlayerMoveEvent> {
     private val players = HashSet<UUID>()
     private val sneakingTime: Object2LongMap<UUID> = Object2LongOpenHashMap()
 

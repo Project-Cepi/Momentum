@@ -11,7 +11,7 @@ object Momentum : Extension() {
     lateinit var abilityManager: AbilityManager
 
     override fun initialize() {
-        abilityManager = AbilityManager(DoubleJump(), RockPillar(), SuperJump())
+        abilityManager = AbilityManager(DoubleJump, RockPillar, SuperJump)
 
         // register commands
         MinecraftServer.getCommandManager().register(MovementCommand())

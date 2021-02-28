@@ -12,6 +12,7 @@ class MovementCommand : Command("movement") {
 
     init {
         val set = "set".asSubcommand()
+        val remove = "remove".asSubcommand()
         val info = "info".asSubcommand()
 
         val abilityName = ArgumentType.Word("ability").from(*Momentum.abilityManager.abilities.map { it.name }.toTypedArray())
@@ -26,6 +27,12 @@ class MovementCommand : Command("movement") {
                         player.sendMessage("Unknown ability!")
                     }
                 }
+            }
+        }
+
+        addSyntax(remove) { player ->
+            if (player is Player) {
+                Momentum.abilityManager[player] = null
             }
         }
 

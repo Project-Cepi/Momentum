@@ -10,8 +10,9 @@ import net.minestom.server.utils.Vector
 import net.minestom.server.utils.time.TimeUnit
 import world.cepi.kstom.addEventCallback
 import world.cepi.momentum.MovementAbility
+import java.util.*
 
-class RockPillar : MovementAbility(), EventCallback<PlayerStartFlyingEvent> {
+object RockPillar : MovementAbility(), EventCallback<PlayerStartFlyingEvent> {
 
     override val description: String = """
         By double tapping the space bar (the default way to toggle flying in vanilla), a

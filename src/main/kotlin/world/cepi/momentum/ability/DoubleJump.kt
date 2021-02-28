@@ -11,7 +11,7 @@ import world.cepi.momentum.MovementAbility
  * player will get a brief boost to their momentum, as if they performed a second jump
  * in the air.
  */
-class DoubleJump : MovementAbility(), EventCallback<PlayerStartFlyingEvent> {
+object DoubleJump : MovementAbility(), EventCallback<PlayerStartFlyingEvent> {
 
     override val description: String = """
         By double tapping the space bar (the default way to toggle flying in vanilla), the
