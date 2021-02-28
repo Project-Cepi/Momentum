@@ -11,12 +11,12 @@ object Momentum : Extension() {
     lateinit var abilityManager: AbilityManager
 
     override fun initialize() {
-        abilityManager = AbilityManager(DoubleJump(), RockPillar(), SuperJump())
+        abilityManager = AbilityManager(DoubleJump, RockPillar, SuperJump)
 
         // register commands
         MinecraftServer.getCommandManager().register(MovementCommand())
 
-        logger.info("[Momentum] Extension enabled - ${abilityManager.getAbilities().size} abilities loaded!");
+        logger.info("[Momentum] Extension enabled - ${abilityManager.abilities.size} abilities loaded!")
     }
 
     override fun terminate() {
