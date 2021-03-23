@@ -40,7 +40,6 @@ object SuperJump : MovementAbility(), EventCallback<PlayerMoveEvent> {
     private fun performSuperJump(player: Player) {
         sneakingTime.removeLong(player.uuid).let {
             val vector = getMultiplier(System.currentTimeMillis() - it)
-            player.sendMessage(vector.toString())
             player.velocity = vector
         }
     }

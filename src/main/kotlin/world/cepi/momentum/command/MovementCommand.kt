@@ -1,5 +1,8 @@
 package world.cepi.momentum.command
 
+import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.event.ClickEvent
+import net.kyori.adventure.text.format.NamedTextColor
 import net.minestom.server.command.builder.Command
 import net.minestom.server.command.builder.arguments.ArgumentType
 import net.minestom.server.entity.Player
@@ -22,9 +25,13 @@ class MovementCommand : Command("movement") {
                 Momentum.abilityManager[args.get(abilityName)].let {
                     if (it != null) {
                         player.ability = it
-                        player.sendMessage("Ability set to ${it.name}!")
+                        player.sendMessage(Component.text("Ability set to ", NamedTextColor.DARK_GRAY)
+                            .append(Component.text(it.name, NamedTextColor.GRAY)
+                                .hoverEvent(Component.text("Click to see more information about this ability!", NamedTextColor.GRAY))
+                                .clickEvent(ClickEvent.suggestCommand("/movement info ${it.name}")))
+                            .append(Component.text("!", NamedTextColor.DARK_GRAY)))
                     } else {
-                        player.sendMessage("Unknown ability!")
+                        player.sendMessage(Component.text("Unknown ability!", NamedTextColor.RED))
                     }
                 }
             }
@@ -39,9 +46,9 @@ class MovementCommand : Command("movement") {
         addSyntax(info, abilityName) { sender, args ->
             Momentum.abilityManager[args.get(abilityName)].let {
                 if (it != null) {
-                    sender.sendMessage(it.description)
+                    sender.sendMessage(Component.text(it.description, NamedTextColor.GRAY))
                 } else {
-                    sender.sendMessage("Unknown ability!")
+                    sender.sendMessage(Component.text("Unknown ability!", NamedTextColor.RED))
                 }
             }
         }

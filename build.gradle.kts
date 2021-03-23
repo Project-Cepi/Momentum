@@ -35,10 +35,10 @@ dependencies {
     compileOnly(kotlin("reflect"))
 
     // Compile Minestom into project
-    compileOnly("com.github.Minestom:Minestom:-SNAPSHOT")
+    compileOnly("com.github.Project-Cepi", "Minestom", "c26756c487")
 
     // KStom
-    compileOnly("com.github.Project-Cepi:KStom:dd506bada0")
+    compileOnly("com.github.Project-Cepi", "KStom","cbcf67f09c")
 
     // OkHttp
     compileOnly("com.squareup.okhttp3", "okhttp", "4.9.0")
