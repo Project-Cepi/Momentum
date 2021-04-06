@@ -52,7 +52,6 @@ object SuperJump : MovementAbility(), EventCallback<PlayerMoveEvent> {
      * @return the vector for the jump
      */
     private fun getMultiplier(milliseconds: Long): Vector {
-        println(milliseconds / 1000.0)
         return Vector(0.0, (milliseconds / 1000.0).coerceAtMost(10.0), 0.0)
     }
 

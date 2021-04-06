@@ -22,7 +22,7 @@ object RockPillar : MovementAbility(), EventCallback<PlayerStartFlyingEvent> {
 
     override fun apply(player: Player) {
         player.isAllowFlying = true
-        player.addEventCallback(::run)
+        player.addEventCallback(PlayerStartFlyingEvent::class.java, this)
     }
 
     override fun remove(player: Player) {
