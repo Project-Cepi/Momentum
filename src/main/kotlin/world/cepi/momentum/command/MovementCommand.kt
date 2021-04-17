@@ -40,6 +40,7 @@ class MovementCommand : Command("movement") {
         addSyntax(clear) { player ->
             if (player is Player) {
                 Momentum.abilityManager[player] = null
+                player.sendMessage(Component.text("Abilities cleared!", NamedTextColor.GRAY))
             }
         }
 
