@@ -17,7 +17,6 @@ object JumpSmash : MovementAbility(), EventCallback<PlayerStartSneakingEvent> {
 
     override fun run(event: PlayerStartSneakingEvent) {
         if (event.player.isFlying || !event.player.isOnGround) {
-            event.player.sendMessage("Test")
             event.player.isFlying = false
             val vector = event.player.position.direction.multiply(5)
             vector.y = -10.0
