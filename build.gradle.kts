@@ -5,7 +5,7 @@ plugins {
     id("org.jetbrains.kotlin.jvm") version "1.5.0"
     kotlin("plugin.serialization") version "1.4.21"
     id("com.github.johnrengelman.shadow") version "7.0.0"
-    maven
+    `maven-publish`
 
     // Apply the application plugin to add support for building a jar
     java
@@ -13,10 +13,9 @@ plugins {
 }
 
 repositories {
-
     // Use mavenCentral
     mavenCentral()
-    
+
     maven(url = "https://repo1.maven.org/maven2/")
     maven(url = "https://repo.spongepowered.org/maven")
     maven(url = "https://libraries.minecraft.net")
@@ -36,16 +35,16 @@ dependencies {
     compileOnly(kotlin("reflect"))
 
     // Compile Minestom into project
-    compileOnly("com.github.Project-Cepi", "Minestom", "c26756c487")
+    compileOnly("com.github.Project-Cepi", "Minestom", "cd0ea0c0c2")
 
     // KStom
-    compileOnly("com.github.Project-Cepi", "KStom","cbcf67f09c")
-
-    // OkHttp
-    compileOnly("com.squareup.okhttp3", "okhttp", "4.9.0")
+    compileOnly("com.github.Project-Cepi", "KStom","570ab31fd2")
 
     // import kotlinx serialization
     compileOnly("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.0")
+
+    // Kepi
+    compileOnly("com.github.Project-Cepi:Kepi:c6ed2d6884")
 }
 
 tasks.withType<Test> {

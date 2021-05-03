@@ -2,6 +2,8 @@ package world.cepi.momentum
 
 import net.minestom.server.MinecraftServer
 import net.minestom.server.extensions.Extension
+import world.cepi.kstom.command.register
+import world.cepi.kstom.command.unregister
 import world.cepi.momentum.ability.DoubleJump
 import world.cepi.momentum.ability.JumpSmash
 import world.cepi.momentum.ability.RockPillar
@@ -15,12 +17,15 @@ object Momentum : Extension() {
         abilityManager = AbilityManager(DoubleJump, RockPillar, SuperJump, JumpSmash)
 
         // register commands
-        MinecraftServer.getCommandManager().register(MovementCommand())
+        MovementCommand.register()
 
         logger.info("[Momentum] Extension enabled - ${abilityManager.abilities.size} abilities loaded!")
     }
 
     override fun terminate() {
+
+        MovementCommand.unregister()
+
         logger.info("[Momentum] Extension disabled!")
     }
 }
