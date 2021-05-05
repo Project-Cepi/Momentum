@@ -27,7 +27,7 @@ object MovementCommand : Command("movement") {
         }
 
         abilityName.callback = ArgumentCallback { sender, exception ->
-            sender.sendFormattedTranslatableMessage("ability", "unknown", Component.text(exception.input, NamedTextColor.BLUE))
+            sender.sendFormattedTranslatableMessage("momentum", "unknown", Component.text(exception.input, NamedTextColor.BLUE))
         }
 
         addSyntax(set, abilityName) { player, args ->
@@ -35,7 +35,7 @@ object MovementCommand : Command("movement") {
                 val ability = args.get(abilityName)
 
                 player.ability = ability
-                player.sendFormattedTranslatableMessage("ability", "set",
+                player.sendFormattedTranslatableMessage("momentum", "set",
                     Component.text(ability.name, NamedTextColor.BLUE)
                         .hoverEvent(Component.text("Click to see more information about this ability!", NamedTextColor.GRAY))
                         .clickEvent(ClickEvent.suggestCommand("/movement info ${ability.name}")))
@@ -45,7 +45,7 @@ object MovementCommand : Command("movement") {
         addSyntax(clear) { player ->
             if (player is Player) {
                 Momentum.abilityManager[player] = null
-                player.sendFormattedTranslatableMessage("ability", "clear")
+                player.sendFormattedTranslatableMessage("momentum", "clear")
             }
         }
 
