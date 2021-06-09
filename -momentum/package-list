@@ -20,7 +20,8 @@ $dokka.location:world.cepi.momentum.ability/SuperJump/apply/#net.minestom.server
 $dokka.location:world.cepi.momentum.ability/SuperJump/description/#/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-super-jump/description.html
 $dokka.location:world.cepi.momentum.ability/SuperJump/initialise/#/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-super-jump/initialise.html
 $dokka.location:world.cepi.momentum.ability/SuperJump/remove/#net.minestom.server.entity.Player/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-super-jump/remove.html
-$dokka.location:world.cepi.momentum.ability/SuperJump/run/#net.minestom.server.event.player.PlayerMoveEvent/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-super-jump/run.html
+$dokka.location:world.cepi.momentum.ability/SuperJump/startSneakingEvent/#net.minestom.server.event.player.PlayerStartSneakingEvent/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-super-jump/start-sneaking-event.html
+$dokka.location:world.cepi.momentum.ability/SuperJump/stopSneakingEvent/#net.minestom.server.event.player.PlayerStopSneakingEvent/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-super-jump/stop-sneaking-event.html
 $dokka.location:world.cepi.momentum.command////PointingToDeclaration/-momentum/world.cepi.momentum.command/index.html
 $dokka.location:world.cepi.momentum.command/MovementCommand///PointingToDeclaration/-momentum/world.cepi.momentum.command/-movement-command/index.html
 $dokka.location:world.cepi.momentum////PointingToDeclaration/-momentum/world.cepi.momentum/index.html
