@@ -8,6 +8,7 @@ import net.minestom.server.command.builder.Command
 import net.minestom.server.command.builder.arguments.ArgumentType
 import net.minestom.server.command.builder.exception.ArgumentSyntaxException
 import net.minestom.server.entity.Player
+import world.cepi.kepi.messages.sendFormattedMessage
 import world.cepi.kepi.messages.sendFormattedTranslatableMessage
 import world.cepi.kstom.command.addSyntax
 import world.cepi.kstom.command.arguments.literal
@@ -50,7 +51,7 @@ object MovementCommand : Command("movement") {
         }
 
         addSyntax(info, abilityName) { sender, args ->
-            sender.sendMessage(Component.text(args.get(abilityName).description, NamedTextColor.GRAY))
+            args.get(abilityName).description.trim().forEach { sender.sendFormattedMessage(Component.text(it)) }
         }
     }
 }

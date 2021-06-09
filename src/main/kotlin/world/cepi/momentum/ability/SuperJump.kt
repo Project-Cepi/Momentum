@@ -6,15 +6,18 @@ import net.minestom.server.MinecraftServer
 import net.minestom.server.entity.Player
 import net.minestom.server.event.EventCallback
 import net.minestom.server.event.player.PlayerMoveEvent
+import net.minestom.server.event.player.PlayerStartSneakingEvent
+import net.minestom.server.event.player.PlayerStopSneakingEvent
 import net.minestom.server.network.packet.client.play.ClientEntityActionPacket
 import net.minestom.server.network.packet.client.play.ClientEntityActionPacket.Action.START_SNEAKING
 import net.minestom.server.network.packet.client.play.ClientEntityActionPacket.Action.STOP_SNEAKING
 import net.minestom.server.utils.Vector
 import world.cepi.kstom.addEventCallback
+import world.cepi.kstom.removeEventCallback
 import world.cepi.momentum.MovementAbility
 import java.util.*
 
-object SuperJump : MovementAbility(), EventCallback<PlayerMoveEvent> {
+object SuperJump : MovementAbility() {
     private val players = HashSet<UUID>()
     private val sneakingTime: Object2LongMap<UUID> = Object2LongOpenHashMap()
 
@@ -25,16 +28,7 @@ object SuperJump : MovementAbility(), EventCallback<PlayerMoveEvent> {
     """.trimIndent()
 
     override fun initialise() {
-        // todo switch to the new sneaking events when they are pulled
-        MinecraftServer.getConnectionManager().onPacketReceive { player, _, packet ->
-            if (packet is ClientEntityActionPacket && players.contains(player.uuid)) {
-                @Suppress("NON_EXHAUSTIVE_WHEN")
-                when (packet.action) {
-                    START_SNEAKING -> sneakingTime[player.uuid] = System.currentTimeMillis()
-                    STOP_SNEAKING -> performSuperJump(player)
-                }
-            }
-        }
+
     }
 
     private fun performSuperJump(player: Player) {
@@ -55,21 +49,27 @@ object SuperJump : MovementAbility(), EventCallback<PlayerMoveEvent> {
         return Vector(0.0, (milliseconds / 1000.0).coerceAtMost(10.0), 0.0)
     }
 
+    fun startSneakingEvent(event: PlayerStartSneakingEvent) = with(event) {
+        sneakingTime[player.uuid] = System.currentTimeMillis()
+    }
+
+    fun stopSneakingEvent(event: PlayerStopSneakingEvent) = with(event) {
+        performSuperJump(player)
+    }
+
     override fun apply(player: Player) {
         players.add(player.uuid)
-        player.addEventCallback(::run)
+
+        player.addEventCallback(::startSneakingEvent)
+        player.addEventCallback(::stopSneakingEvent)
     }
 
     override fun remove(player: Player) {
         sneakingTime.removeLong(player.uuid)
         players.remove(player.uuid)
-        player.removeEventCallback(PlayerMoveEvent::class.java, ::run)
+
+        player.removeEventCallback(::startSneakingEvent)
+        player.removeEventCallback(::stopSneakingEvent)
     }
 
-    override fun run(event: PlayerMoveEvent) {
-        // cancel super jump on move todo check if we want to do this - make it configurable?
-        if (!event.newPosition.isSimilar(event.player.position)) {
-            sneakingTime.removeLong(event.player.uuid)
-        }
-    }
 }

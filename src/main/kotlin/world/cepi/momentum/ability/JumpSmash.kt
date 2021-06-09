@@ -4,15 +4,17 @@ import net.minestom.server.entity.Player
 import net.minestom.server.event.EventCallback
 import net.minestom.server.event.player.PlayerStartFlyingEvent
 import net.minestom.server.event.player.PlayerStartSneakingEvent
+import world.cepi.kstom.addEventCallback
+import world.cepi.kstom.removeEventCallback
 import world.cepi.momentum.MovementAbility
 
 object JumpSmash : MovementAbility(), EventCallback<PlayerStartSneakingEvent> {
     override fun apply(player: Player) {
-        player.addEventCallback(PlayerStartSneakingEvent::class.java, ::run)
+        player.addEventCallback(::run)
     }
 
     override fun remove(player: Player) {
-        player.removeEventCallback(PlayerStartSneakingEvent::class.java, this)
+        player.removeEventCallback(::run)
     }
 
     override fun run(event: PlayerStartSneakingEvent) {
