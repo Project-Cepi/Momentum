@@ -4,19 +4,19 @@ $dokka.location:world.cepi.momentum.ability////PointingToDeclaration/-momentum/
 $dokka.location:world.cepi.momentum.ability/DoubleJump///PointingToDeclaration/-momentum/world.cepi.momentum.ability/-double-jump/index.html
 $dokka.location:world.cepi.momentum.ability/DoubleJump/apply/#net.minestom.server.entity.Player/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-double-jump/apply.html
 $dokka.location:world.cepi.momentum.ability/DoubleJump/description/#/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-double-jump/description.html
+$dokka.location:world.cepi.momentum.ability/DoubleJump/initialise/#/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-double-jump/initialise.html
 $dokka.location:world.cepi.momentum.ability/DoubleJump/remove/#net.minestom.server.entity.Player/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-double-jump/remove.html
 $dokka.location:world.cepi.momentum.ability/DoubleJump/run/#net.minestom.server.event.player.PlayerStartFlyingEvent/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-double-jump/run.html
 $dokka.location:world.cepi.momentum.ability/JumpSmash///PointingToDeclaration/-momentum/world.cepi.momentum.ability/-jump-smash/index.html
-$dokka.location:world.cepi.momentum.ability/JumpSmash/apply/#net.minestom.server.entity.Player/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-jump-smash/apply.html
-$dokka.location:world.cepi.momentum.ability/JumpSmash/remove/#net.minestom.server.entity.Player/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-jump-smash/remove.html
+$dokka.location:world.cepi.momentum.ability/JumpSmash/initialise/#/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-jump-smash/initialise.html
 $dokka.location:world.cepi.momentum.ability/JumpSmash/run/#net.minestom.server.event.player.PlayerStartSneakingEvent/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-jump-smash/run.html
 $dokka.location:world.cepi.momentum.ability/RockPillar///PointingToDeclaration/-momentum/world.cepi.momentum.ability/-rock-pillar/index.html
 $dokka.location:world.cepi.momentum.ability/RockPillar/apply/#net.minestom.server.entity.Player/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-rock-pillar/apply.html
 $dokka.location:world.cepi.momentum.ability/RockPillar/description/#/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-rock-pillar/description.html
+$dokka.location:world.cepi.momentum.ability/RockPillar/initialise/#/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-rock-pillar/initialise.html
 $dokka.location:world.cepi.momentum.ability/RockPillar/remove/#net.minestom.server.entity.Player/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-rock-pillar/remove.html
 $dokka.location:world.cepi.momentum.ability/RockPillar/run/#net.minestom.server.event.player.PlayerStartFlyingEvent/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-rock-pillar/run.html
 $dokka.location:world.cepi.momentum.ability/SuperJump///PointingToDeclaration/-momentum/world.cepi.momentum.ability/-super-jump/index.html
-$dokka.location:world.cepi.momentum.ability/SuperJump/apply/#net.minestom.server.entity.Player/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-super-jump/apply.html
 $dokka.location:world.cepi.momentum.ability/SuperJump/description/#/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-super-jump/description.html
 $dokka.location:world.cepi.momentum.ability/SuperJump/initialise/#/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-super-jump/initialise.html
 $dokka.location:world.cepi.momentum.ability/SuperJump/remove/#net.minestom.server.entity.Player/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-super-jump/remove.html
@@ -32,8 +32,10 @@ $dokka.location:world.cepi.momentum/AbilityManager/abilities/#/PointingToDeclara
 $dokka.location:world.cepi.momentum/AbilityManager/get/#kotlin.String/PointingToDeclaration/-momentum/world.cepi.momentum/-ability-manager/get.html
 $dokka.location:world.cepi.momentum/AbilityManager/get/#net.minestom.server.entity.Player/PointingToDeclaration/-momentum/world.cepi.momentum/-ability-manager/get.html
 $dokka.location:world.cepi.momentum/AbilityManager/set/#net.minestom.server.entity.Player#world.cepi.momentum.MovementAbility?/PointingToDeclaration/-momentum/world.cepi.momentum/-ability-manager/set.html
+$dokka.location:world.cepi.momentum/Momentum.Companion///PointingToDeclaration/-momentum/world.cepi.momentum/-momentum/-companion/index.html
+$dokka.location:world.cepi.momentum/Momentum.Companion/abilityManager/#/PointingToDeclaration/-momentum/world.cepi.momentum/-momentum/-companion/ability-manager.html
 $dokka.location:world.cepi.momentum/Momentum///PointingToDeclaration/-momentum/world.cepi.momentum/-momentum/index.html
-$dokka.location:world.cepi.momentum/Momentum/abilityManager/#/PointingToDeclaration/-momentum/world.cepi.momentum/-momentum/ability-manager.html
+$dokka.location:world.cepi.momentum/Momentum/Momentum/#/PointingToDeclaration/-momentum/world.cepi.momentum/-momentum/-momentum.html
 $dokka.location:world.cepi.momentum/Momentum/initialize/#/PointingToDeclaration/-momentum/world.cepi.momentum/-momentum/initialize.html
 $dokka.location:world.cepi.momentum/Momentum/terminate/#/PointingToDeclaration/-momentum/world.cepi.momentum/-momentum/terminate.html
 $dokka.location:world.cepi.momentum/MovementAbility///PointingToDeclaration/-momentum/world.cepi.momentum/-movement-ability/index.html
@@ -42,6 +44,8 @@ $dokka.location:world.cepi.momentum/MovementAbility/apply/#net.minestom.server.e
 $dokka.location:world.cepi.momentum/MovementAbility/description/#/PointingToDeclaration/-momentum/world.cepi.momentum/-movement-ability/description.html
 $dokka.location:world.cepi.momentum/MovementAbility/initialise/#/PointingToDeclaration/-momentum/world.cepi.momentum/-movement-ability/initialise.html
 $dokka.location:world.cepi.momentum/MovementAbility/name/#/PointingToDeclaration/-momentum/world.cepi.momentum/-movement-ability/name.html
+$dokka.location:world.cepi.momentum/MovementAbility/node/#/PointingToDeclaration/-momentum/world.cepi.momentum/-movement-ability/node.html
+$dokka.location:world.cepi.momentum/MovementAbility/players/#/PointingToDeclaration/-momentum/world.cepi.momentum/-movement-ability/players.html
 $dokka.location:world.cepi.momentum/MovementAbility/remove/#net.minestom.server.entity.Player/PointingToDeclaration/-momentum/world.cepi.momentum/-movement-ability/remove.html
 world.cepi.momentum
 world.cepi.momentum.ability
