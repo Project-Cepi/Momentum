@@ -32,10 +32,10 @@ dependencies {
     compileOnly(kotlin("reflect"))
 
     // Compile Minestom into project
-    compileOnly("com.github.Project-Cepi", "Minestom", "73abe7a4d7")
+    compileOnly("com.github.Minestom", "Minestom", "78cc392007")
 
     // KStom
-    compileOnly("com.github.Project-Cepi", "KStom","850bc149d8")
+    compileOnly("com.github.Project-Cepi", "KStom","0129c5cfff")
 
     // import kotlinx serialization
     compileOnly("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.1")

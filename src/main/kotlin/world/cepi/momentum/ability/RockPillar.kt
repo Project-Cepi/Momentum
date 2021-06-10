@@ -2,17 +2,22 @@ package world.cepi.momentum.ability
 
 import net.minestom.server.MinecraftServer
 import net.minestom.server.entity.Player
-import net.minestom.server.event.EventCallback
+import net.minestom.server.event.EventFilter
+import net.minestom.server.event.EventNode
 import net.minestom.server.event.player.PlayerStartFlyingEvent
 import net.minestom.server.instance.block.Block
 import net.minestom.server.utils.BlockPosition
 import net.minestom.server.utils.Vector
 import net.minestom.server.utils.time.TimeUnit
-import world.cepi.kstom.addEventCallback
+import world.cepi.kstom.event.listenOnly
 import world.cepi.momentum.MovementAbility
 import java.util.*
 
-object RockPillar : MovementAbility(), EventCallback<PlayerStartFlyingEvent> {
+object RockPillar : MovementAbility() {
+
+    override fun initialise() {
+        node.listenOnly(::run)
+    }
 
     override val description: String = """
         By double tapping the space bar (the default way to toggle flying in vanilla), a
@@ -22,39 +27,37 @@ object RockPillar : MovementAbility(), EventCallback<PlayerStartFlyingEvent> {
 
     override fun apply(player: Player) {
         player.isAllowFlying = true
-        player.addEventCallback(PlayerStartFlyingEvent::class.java, this)
     }
 
     override fun remove(player: Player) {
         player.isAllowFlying = false
-        player.removeEventCallback(PlayerStartFlyingEvent::class.java, this)
     }
 
-    override fun run(event: PlayerStartFlyingEvent) {
+    fun run(event: PlayerStartFlyingEvent) = with(event) {
         // cancel the flight first
-        event.player.isFlying = false
+        player.isFlying = false
 
         // now get the block to start the pillar at
-        val blockPosition = getBlockAboveGround(event.player)
+        val blockPosition = getBlockAboveGround(player)
 
         if (blockPosition != null) {
             // start off by throwing the player up in the air
-            event.player.velocity = Vector(0.0, 12.0, 0.0)
+            player.velocity = Vector(0.0, 12.0, 0.0)
 
             // now build the pillar!
             val pillarBlocks = HashSet<BlockPosition>()
 
             MinecraftServer.getSchedulerManager().buildTask {
                 // double check the instance still exists
-                if (event.player.instance == null) {
+                if (player.instance == null) {
                     return@buildTask
                 }
 
                 // loop and place each block in the given location
                 for (i in 1..5) {
-                    if (event.player.instance!!.getBlock(blockPosition).isAir) {
+                    if (player.instance!!.getBlock(blockPosition).isAir) {
                         pillarBlocks.add(blockPosition.clone())
-                        event.player.instance!!.setBlock(blockPosition, Block.STONE)
+                        player.instance!!.setBlock(blockPosition, Block.STONE)
                         blockPosition.add(0, 1, 0)
                     } else {
                         // break if we've hit any non air block so we don't destroy any existing structures
@@ -65,10 +68,10 @@ object RockPillar : MovementAbility(), EventCallback<PlayerStartFlyingEvent> {
                 // schedule a task to remove the pillar later
                 MinecraftServer.getSchedulerManager().buildTask {
                     // double check the instance still exists
-                    if (event.player.instance != null) {
+                    if (player.instance != null) {
                         // destroy each placed block
                         pillarBlocks.forEach {
-                            event.player.instance!!.setBlock(it, Block.AIR)
+                            player.instance!!.setBlock(it, Block.AIR)
                         }
                     }
                 }.delay(5, TimeUnit.SECOND).schedule()

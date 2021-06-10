@@ -36,11 +36,16 @@ class AbilityManager(
      */
     operator fun set(player: Player, ability: MovementAbility?) {
         // first remove the existing ability, if any
-        playerAbilities.remove(player.uuid)?.remove(player)
+
+        playerAbilities.remove(player.uuid)?.also {
+            it.players.remove(player.uuid)
+            it.remove(player)
+        }
 
         // If the ability is null then there is no need to do anything else
         if (ability != null) {
             // now reapply the new ability and save it
+                ability.players.add(player.uuid)
             ability.apply(player)
             playerAbilities[player.uuid] = ability
         }

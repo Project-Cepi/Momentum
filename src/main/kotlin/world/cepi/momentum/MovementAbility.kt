@@ -1,6 +1,9 @@
 package world.cepi.momentum
 
 import net.minestom.server.entity.Player
+import net.minestom.server.event.EventFilter
+import net.minestom.server.event.EventNode
+import java.util.*
 
 /**
  * Abstract framework for movement abilities.
@@ -12,6 +15,12 @@ abstract class MovementAbility {
      */
     open val name: String
         get() = this.javaClass.simpleName
+
+    val players = HashSet<UUID>()
+
+    val node = EventNode.type("$name-node", EventFilter.PLAYER) { _, obj ->
+        players.contains(obj.uuid)
+    }
 
     /**
      * Gets the description of this movement ability.
@@ -28,11 +37,11 @@ abstract class MovementAbility {
      * Called when a player sets their movement ability to this movement ability.
      * @param player the player
      */
-    abstract fun apply(player: Player)
+    open fun apply(player: Player) { }
 
     /**
      * Called when a player no longer uses this movement ability.
      * @param player the player
      */
-    abstract fun remove(player: Player)
+    open fun remove(player: Player) { }
 }

@@ -2,23 +2,18 @@ package world.cepi.momentum.ability
 
 import it.unimi.dsi.fastutil.objects.Object2LongMap
 import it.unimi.dsi.fastutil.objects.Object2LongOpenHashMap
-import net.minestom.server.MinecraftServer
 import net.minestom.server.entity.Player
-import net.minestom.server.event.EventCallback
-import net.minestom.server.event.player.PlayerMoveEvent
+import net.minestom.server.event.EventFilter
+import net.minestom.server.event.EventNode
 import net.minestom.server.event.player.PlayerStartSneakingEvent
 import net.minestom.server.event.player.PlayerStopSneakingEvent
-import net.minestom.server.network.packet.client.play.ClientEntityActionPacket
-import net.minestom.server.network.packet.client.play.ClientEntityActionPacket.Action.START_SNEAKING
-import net.minestom.server.network.packet.client.play.ClientEntityActionPacket.Action.STOP_SNEAKING
 import net.minestom.server.utils.Vector
-import world.cepi.kstom.addEventCallback
-import world.cepi.kstom.removeEventCallback
+import world.cepi.kstom.event.listenOnly
+import world.cepi.momentum.Momentum
 import world.cepi.momentum.MovementAbility
 import java.util.*
 
 object SuperJump : MovementAbility() {
-    private val players = HashSet<UUID>()
     private val sneakingTime: Object2LongMap<UUID> = Object2LongOpenHashMap()
 
     override val description: String = """
@@ -28,7 +23,10 @@ object SuperJump : MovementAbility() {
     """.trimIndent()
 
     override fun initialise() {
+        node.listenOnly(::startSneakingEvent)
+        node.listenOnly(::stopSneakingEvent)
 
+        Momentum.eventNode.addChild(node)
     }
 
     private fun performSuperJump(player: Player) {
@@ -57,19 +55,8 @@ object SuperJump : MovementAbility() {
         performSuperJump(player)
     }
 
-    override fun apply(player: Player) {
-        players.add(player.uuid)
-
-        player.addEventCallback(::startSneakingEvent)
-        player.addEventCallback(::stopSneakingEvent)
-    }
-
     override fun remove(player: Player) {
         sneakingTime.removeLong(player.uuid)
-        players.remove(player.uuid)
-
-        player.removeEventCallback(::startSneakingEvent)
-        player.removeEventCallback(::stopSneakingEvent)
     }
 
 }

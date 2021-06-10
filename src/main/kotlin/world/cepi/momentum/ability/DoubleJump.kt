@@ -3,8 +3,7 @@ package world.cepi.momentum.ability
 import net.minestom.server.entity.Player
 import net.minestom.server.event.EventCallback
 import net.minestom.server.event.player.PlayerStartFlyingEvent
-import world.cepi.kstom.addEventCallback
-import world.cepi.kstom.removeEventCallback
+import world.cepi.kstom.event.listenOnly
 import world.cepi.momentum.MovementAbility
 
 /**
@@ -20,14 +19,16 @@ object DoubleJump : MovementAbility(), EventCallback<PlayerStartFlyingEvent> {
         in the air.
     """.trimIndent()
 
+    override fun initialise() {
+        node.listenOnly(::run)
+    }
+
     override fun apply(player: Player) {
         player.isAllowFlying = true
-        player.addEventCallback(::run)
     }
 
     override fun remove(player: Player) {
         player.isAllowFlying = false
-        player.removeEventCallback(::run)
     }
 
     override fun run(event: PlayerStartFlyingEvent) {
