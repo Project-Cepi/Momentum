@@ -3,14 +3,11 @@ package world.cepi.momentum.ability
 import it.unimi.dsi.fastutil.objects.Object2LongMap
 import it.unimi.dsi.fastutil.objects.Object2LongOpenHashMap
 import net.minestom.server.entity.Player
-import net.minestom.server.event.EventFilter
-import net.minestom.server.event.EventNode
 import net.minestom.server.event.player.PlayerStartSneakingEvent
 import net.minestom.server.event.player.PlayerStopSneakingEvent
 import net.minestom.server.utils.Vector
 import world.cepi.kstom.event.listenOnly
 import world.cepi.momentum.Momentum
-import world.cepi.momentum.MovementAbility
 import java.util.*
 
 object SuperJump : MovementAbility() {

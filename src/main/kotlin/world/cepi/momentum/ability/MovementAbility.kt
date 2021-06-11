@@ -1,4 +1,4 @@
-package world.cepi.momentum
+package world.cepi.momentum.ability
 
 import net.minestom.server.entity.Player
 import net.minestom.server.event.EventFilter
@@ -8,7 +8,7 @@ import java.util.*
 /**
  * Abstract framework for movement abilities.
  */
-abstract class MovementAbility {
+sealed class MovementAbility {
 
     /**
      * Gets the name of this movement ability.

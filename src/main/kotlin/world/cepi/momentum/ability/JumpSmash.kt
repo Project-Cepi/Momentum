@@ -2,7 +2,6 @@ package world.cepi.momentum.ability
 
 import net.minestom.server.event.player.PlayerStartSneakingEvent
 import world.cepi.kstom.event.listenOnly
-import world.cepi.momentum.MovementAbility
 
 object JumpSmash : MovementAbility() {
 

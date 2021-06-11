@@ -1,6 +1,7 @@
 package world.cepi.momentum
 
 import net.minestom.server.entity.Player
+import world.cepi.momentum.ability.MovementAbility
 import java.util.*
 
 class AbilityManager(

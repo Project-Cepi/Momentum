@@ -4,10 +4,7 @@ import net.minestom.server.extensions.Extension
 import world.cepi.kstom.command.register
 import world.cepi.kstom.command.unregister
 import world.cepi.kstom.extension.ExtensionCompanion
-import world.cepi.momentum.ability.DoubleJump
-import world.cepi.momentum.ability.JumpSmash
-import world.cepi.momentum.ability.RockPillar
-import world.cepi.momentum.ability.SuperJump
+import world.cepi.momentum.ability.*
 import world.cepi.momentum.command.MovementCommand
 
 class Momentum : Extension() {
@@ -26,7 +23,7 @@ class Momentum : Extension() {
         logger.info("[Momentum] Extension disabled!")
     }
 
-    companion object: ExtensionCompanion<Momentum>(Momentum::class) {
-        val abilityManager = AbilityManager(DoubleJump, RockPillar, SuperJump, JumpSmash)
+    companion object: ExtensionCompanion<Momentum>(Any()) {
+        val abilityManager = AbilityManager(*MovementAbility::class.sealedSubclasses.map { it.objectInstance!! }.toTypedArray())
     }
 }

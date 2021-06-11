@@ -4,7 +4,6 @@ import net.minestom.server.entity.Player
 import net.minestom.server.event.EventCallback
 import net.minestom.server.event.player.PlayerStartFlyingEvent
 import world.cepi.kstom.event.listenOnly
-import world.cepi.momentum.MovementAbility
 
 /**
  * By double tapping the space bar (the default way to toggle flying in vanilla), the
