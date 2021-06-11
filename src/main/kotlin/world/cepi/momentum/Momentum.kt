@@ -10,6 +10,9 @@ import world.cepi.momentum.command.MovementCommand
 class Momentum : Extension() {
 
     override fun initialize() {
+        // Register ability manager
+        abilityManager = AbilityManager(eventNode, *MovementAbility::class.sealedSubclasses.map { it.objectInstance!! }.toTypedArray())
+
         // register commands
         MovementCommand.register()
 
@@ -23,7 +26,7 @@ class Momentum : Extension() {
         logger.info("[Momentum] Extension disabled!")
     }
 
-    companion object: ExtensionCompanion<Momentum>(Any()) {
-        val abilityManager = AbilityManager(*MovementAbility::class.sealedSubclasses.map { it.objectInstance!! }.toTypedArray())
+    companion object {
+        lateinit var abilityManager: AbilityManager
     }
 }

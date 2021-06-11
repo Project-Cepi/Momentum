@@ -1,10 +1,13 @@
 package world.cepi.momentum
 
 import net.minestom.server.entity.Player
+import net.minestom.server.event.Event
+import net.minestom.server.event.EventNode
 import world.cepi.momentum.ability.MovementAbility
 import java.util.*
 
 class AbilityManager(
+    val node: EventNode<Event>,
     /** a collection of all currently loaded abilities. */
     vararg val abilities: MovementAbility
 ) {
@@ -12,6 +15,7 @@ class AbilityManager(
 
     init {
         abilities.iterator().forEachRemaining {
+            node.addChild(it.node)
             it.initialise()
         }
     }

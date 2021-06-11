@@ -22,8 +22,6 @@ object SuperJump : MovementAbility() {
     override fun initialise() {
         node.listenOnly(::startSneakingEvent)
         node.listenOnly(::stopSneakingEvent)
-
-        Momentum.eventNode.addChild(node)
     }
 
     private fun performSuperJump(player: Player) {
