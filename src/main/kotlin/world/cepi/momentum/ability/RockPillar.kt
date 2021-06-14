@@ -1,6 +1,7 @@
 package world.cepi.momentum.ability
 
 import net.minestom.server.MinecraftServer
+import net.minestom.server.entity.GameMode
 import net.minestom.server.entity.Player
 import net.minestom.server.event.player.PlayerStartFlyingEvent
 import net.minestom.server.instance.block.Block
@@ -27,7 +28,7 @@ object RockPillar : MovementAbility() {
     }
 
     override fun remove(player: Player) {
-        player.isAllowFlying = false
+        player.isAllowFlying = player.isCreative || player.gameMode == GameMode.SPECTATOR
     }
 
     fun run(event: PlayerStartFlyingEvent) = with(event) {
