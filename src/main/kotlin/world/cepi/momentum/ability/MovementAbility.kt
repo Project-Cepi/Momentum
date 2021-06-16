@@ -18,7 +18,7 @@ sealed class MovementAbility {
 
     val players = HashSet<UUID>()
 
-    val node = EventNode.type("$name-node", EventFilter.PLAYER) { _, obj ->
+    val node = EventNode.type("${this.javaClass.simpleName}-node", EventFilter.PLAYER) { _, obj ->
         players.contains(obj.uuid)
     }
 
