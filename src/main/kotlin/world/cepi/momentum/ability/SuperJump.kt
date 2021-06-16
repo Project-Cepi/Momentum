@@ -7,7 +7,7 @@ import net.minestom.server.event.player.PlayerStartSneakingEvent
 import net.minestom.server.event.player.PlayerStopSneakingEvent
 import net.minestom.server.utils.Vector
 import world.cepi.kstom.event.listenOnly
-import world.cepi.momentum.Momentum
+import world.cepi.momentum.cooldown.PredicateCooldown
 import java.util.*
 
 object SuperJump : MovementAbility() {
@@ -19,15 +19,19 @@ object SuperJump : MovementAbility() {
         were shifting for. Moving whilst charging the super jump will cancel the jump.
     """.trimIndent()
 
+    override val cooldown = PredicateCooldown(Player::isOnGround)
+
     override fun initialise() {
         node.listenOnly(::startSneakingEvent)
         node.listenOnly(::stopSneakingEvent)
     }
 
     private fun performSuperJump(player: Player) {
-        sneakingTime.removeLong(player.uuid).let {
-            val vector = getMultiplier(System.currentTimeMillis() - it)
-            player.velocity = vector
+        sneakingTime.removeLong(player.uuid).let { power ->
+            this.cooldown.runIfExpired(player) { player ->
+                val vector = getMultiplier(System.currentTimeMillis() - power)
+                player.velocity = vector
+            }
         }
     }
 
@@ -35,6 +39,7 @@ object SuperJump : MovementAbility() {
      * A function that, given a wait time in seconds, will return the vector for a
      * jump. This essentially uses the number of seconds waited as the new vector with a
      * set limit to prevent jumping too high.
+     *
      * @param milliseconds the amount of seconds the jump has been charging
      * @return the vector for the jump
      */
@@ -42,16 +47,15 @@ object SuperJump : MovementAbility() {
         return Vector(0.0, (milliseconds / 1000.0).coerceAtMost(10.0), 0.0)
     }
 
-    fun startSneakingEvent(event: PlayerStartSneakingEvent) = with(event) {
+    private fun startSneakingEvent(event: PlayerStartSneakingEvent) = with(event) {
         sneakingTime[player.uuid] = System.currentTimeMillis()
     }
 
-    fun stopSneakingEvent(event: PlayerStopSneakingEvent) = with(event) {
+    private fun stopSneakingEvent(event: PlayerStopSneakingEvent) = with(event) {
         performSuperJump(player)
     }
 
     override fun remove(player: Player) {
         sneakingTime.removeLong(player.uuid)
     }
-
 }

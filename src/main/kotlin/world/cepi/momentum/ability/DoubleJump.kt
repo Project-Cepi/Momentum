@@ -5,6 +5,8 @@ import net.minestom.server.entity.Player
 import net.minestom.server.event.EventCallback
 import net.minestom.server.event.player.PlayerStartFlyingEvent
 import world.cepi.kstom.event.listenOnly
+import world.cepi.momentum.cooldown.Cooldown
+import world.cepi.momentum.cooldown.PredicateCooldown
 
 /**
  * By double tapping the space bar (the default way to toggle flying in vanilla), the
@@ -19,6 +21,8 @@ object DoubleJump : MovementAbility(), EventCallback<PlayerStartFlyingEvent> {
         in the air.
     """.trimIndent()
 
+    override val cooldown: Cooldown = PredicateCooldown(Player::isOnGround)
+
     override fun initialise() {
         node.listenOnly(::run)
     }
@@ -32,14 +36,16 @@ object DoubleJump : MovementAbility(), EventCallback<PlayerStartFlyingEvent> {
     }
 
     override fun run(event: PlayerStartFlyingEvent) {
-        // cancel the flying first
-        event.player.isFlying = false
-        event.player.refreshFlying(false)
+        this.cooldown.runIfExpired(event.player) { player ->
+            // cancel the flying first
+            player.isFlying = false
+            player.refreshFlying(false)
 
-        // apply a jump to the player
-        val vector = event.player.position.direction.multiply(5)
-        vector.y = 10.0
+            // apply a jump to the player
+            val vector = player.position.direction.multiply(5)
+            vector.y = 10.0
 
-        event.player.velocity = vector
+            player.velocity = vector
+        }
     }
 }

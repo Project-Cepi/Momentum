@@ -3,6 +3,7 @@ package world.cepi.momentum.ability
 import net.minestom.server.entity.Player
 import net.minestom.server.event.EventFilter
 import net.minestom.server.event.EventNode
+import world.cepi.momentum.cooldown.Cooldown
 import java.util.*
 
 /**
@@ -29,18 +30,25 @@ sealed class MovementAbility {
         get() = ""
 
     /**
+     * The cooldown for this movement ability.
+     */
+    open val cooldown: Cooldown = Cooldown.default()
+
+    /**
      * Called when the movement ability is initialised.
      */
     open fun initialise() { }
 
     /**
      * Called when a player sets their movement ability to this movement ability.
+     *
      * @param player the player
      */
     open fun apply(player: Player) { }
 
     /**
      * Called when a player no longer uses this movement ability.
+     *
      * @param player the player
      */
     open fun remove(player: Player) { }
