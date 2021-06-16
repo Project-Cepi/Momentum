@@ -3,15 +3,17 @@ $dokka.linkExtension:html
 $dokka.location:world.cepi.momentum.ability////PointingToDeclaration/-momentum/world.cepi.momentum.ability/index.html
 $dokka.location:world.cepi.momentum.ability/DoubleJump///PointingToDeclaration/-momentum/world.cepi.momentum.ability/-double-jump/index.html
 $dokka.location:world.cepi.momentum.ability/DoubleJump/apply/#net.minestom.server.entity.Player/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-double-jump/apply.html
+$dokka.location:world.cepi.momentum.ability/DoubleJump/cooldown/#/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-double-jump/cooldown.html
 $dokka.location:world.cepi.momentum.ability/DoubleJump/description/#/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-double-jump/description.html
 $dokka.location:world.cepi.momentum.ability/DoubleJump/initialise/#/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-double-jump/initialise.html
 $dokka.location:world.cepi.momentum.ability/DoubleJump/remove/#net.minestom.server.entity.Player/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-double-jump/remove.html
 $dokka.location:world.cepi.momentum.ability/DoubleJump/run/#net.minestom.server.event.player.PlayerStartFlyingEvent/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-double-jump/run.html
 $dokka.location:world.cepi.momentum.ability/JumpSmash///PointingToDeclaration/-momentum/world.cepi.momentum.ability/-jump-smash/index.html
+$dokka.location:world.cepi.momentum.ability/JumpSmash/cooldown/#/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-jump-smash/cooldown.html
 $dokka.location:world.cepi.momentum.ability/JumpSmash/initialise/#/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-jump-smash/initialise.html
-$dokka.location:world.cepi.momentum.ability/JumpSmash/run/#net.minestom.server.event.player.PlayerStartSneakingEvent/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-jump-smash/run.html
 $dokka.location:world.cepi.momentum.ability/MovementAbility///PointingToDeclaration/-momentum/world.cepi.momentum.ability/-movement-ability/index.html
 $dokka.location:world.cepi.momentum.ability/MovementAbility/apply/#net.minestom.server.entity.Player/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-movement-ability/apply.html
+$dokka.location:world.cepi.momentum.ability/MovementAbility/cooldown/#/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-movement-ability/cooldown.html
 $dokka.location:world.cepi.momentum.ability/MovementAbility/description/#/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-movement-ability/description.html
 $dokka.location:world.cepi.momentum.ability/MovementAbility/initialise/#/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-movement-ability/initialise.html
 $dokka.location:world.cepi.momentum.ability/MovementAbility/name/#/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-movement-ability/name.html
@@ -23,15 +25,33 @@ $dokka.location:world.cepi.momentum.ability/RockPillar/apply/#net.minestom.serve
 $dokka.location:world.cepi.momentum.ability/RockPillar/description/#/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-rock-pillar/description.html
 $dokka.location:world.cepi.momentum.ability/RockPillar/initialise/#/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-rock-pillar/initialise.html
 $dokka.location:world.cepi.momentum.ability/RockPillar/remove/#net.minestom.server.entity.Player/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-rock-pillar/remove.html
-$dokka.location:world.cepi.momentum.ability/RockPillar/run/#net.minestom.server.event.player.PlayerStartFlyingEvent/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-rock-pillar/run.html
 $dokka.location:world.cepi.momentum.ability/SuperJump///PointingToDeclaration/-momentum/world.cepi.momentum.ability/-super-jump/index.html
+$dokka.location:world.cepi.momentum.ability/SuperJump/cooldown/#/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-super-jump/cooldown.html
 $dokka.location:world.cepi.momentum.ability/SuperJump/description/#/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-super-jump/description.html
 $dokka.location:world.cepi.momentum.ability/SuperJump/initialise/#/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-super-jump/initialise.html
 $dokka.location:world.cepi.momentum.ability/SuperJump/remove/#net.minestom.server.entity.Player/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-super-jump/remove.html
-$dokka.location:world.cepi.momentum.ability/SuperJump/startSneakingEvent/#net.minestom.server.event.player.PlayerStartSneakingEvent/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-super-jump/start-sneaking-event.html
-$dokka.location:world.cepi.momentum.ability/SuperJump/stopSneakingEvent/#net.minestom.server.event.player.PlayerStopSneakingEvent/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-super-jump/stop-sneaking-event.html
 $dokka.location:world.cepi.momentum.command////PointingToDeclaration/-momentum/world.cepi.momentum.command/index.html
 $dokka.location:world.cepi.momentum.command/MovementCommand///PointingToDeclaration/-momentum/world.cepi.momentum.command/-movement-command/index.html
+$dokka.location:world.cepi.momentum.cooldown////PointingToDeclaration/-momentum/world.cepi.momentum.cooldown/index.html
+$dokka.location:world.cepi.momentum.cooldown/CombinedCooldown///PointingToDeclaration/-momentum/world.cepi.momentum.cooldown/-combined-cooldown/index.html
+$dokka.location:world.cepi.momentum.cooldown/CombinedCooldown/CombinedCooldown/#kotlin.Array[world.cepi.momentum.cooldown.Cooldown]/PointingToDeclaration/-momentum/world.cepi.momentum.cooldown/-combined-cooldown/-combined-cooldown.html
+$dokka.location:world.cepi.momentum.cooldown/CombinedCooldown/canRun/#net.minestom.server.entity.Player/PointingToDeclaration/-momentum/world.cepi.momentum.cooldown/-combined-cooldown/can-run.html
+$dokka.location:world.cepi.momentum.cooldown/CombinedCooldown/onRun/#net.minestom.server.entity.Player/PointingToDeclaration/-momentum/world.cepi.momentum.cooldown/-combined-cooldown/on-run.html
+$dokka.location:world.cepi.momentum.cooldown/Cooldown.Companion///PointingToDeclaration/-momentum/world.cepi.momentum.cooldown/-cooldown/-companion/index.html
+$dokka.location:world.cepi.momentum.cooldown/Cooldown.Companion/default/#/PointingToDeclaration/-momentum/world.cepi.momentum.cooldown/-cooldown/-companion/default.html
+$dokka.location:world.cepi.momentum.cooldown/Cooldown///PointingToDeclaration/-momentum/world.cepi.momentum.cooldown/-cooldown/index.html
+$dokka.location:world.cepi.momentum.cooldown/Cooldown/canRun/#net.minestom.server.entity.Player/PointingToDeclaration/-momentum/world.cepi.momentum.cooldown/-cooldown/can-run.html
+$dokka.location:world.cepi.momentum.cooldown/Cooldown/onRun/#net.minestom.server.entity.Player/PointingToDeclaration/-momentum/world.cepi.momentum.cooldown/-cooldown/on-run.html
+$dokka.location:world.cepi.momentum.cooldown/Cooldown/runIfExpired/#net.minestom.server.entity.Player#kotlin.Function1[net.minestom.server.entity.Player,kotlin.Unit]/PointingToDeclaration/-momentum/world.cepi.momentum.cooldown/-cooldown/run-if-expired.html
+$dokka.location:world.cepi.momentum.cooldown/NoOpCooldown///PointingToDeclaration/-momentum/world.cepi.momentum.cooldown/-no-op-cooldown/index.html
+$dokka.location:world.cepi.momentum.cooldown/NoOpCooldown/canRun/#net.minestom.server.entity.Player/PointingToDeclaration/-momentum/world.cepi.momentum.cooldown/-no-op-cooldown/can-run.html
+$dokka.location:world.cepi.momentum.cooldown/PredicateCooldown///PointingToDeclaration/-momentum/world.cepi.momentum.cooldown/-predicate-cooldown/index.html
+$dokka.location:world.cepi.momentum.cooldown/PredicateCooldown/PredicateCooldown/#kotlin.Function1[net.minestom.server.entity.Player,kotlin.Boolean]/PointingToDeclaration/-momentum/world.cepi.momentum.cooldown/-predicate-cooldown/-predicate-cooldown.html
+$dokka.location:world.cepi.momentum.cooldown/PredicateCooldown/canRun/#net.minestom.server.entity.Player/PointingToDeclaration/-momentum/world.cepi.momentum.cooldown/-predicate-cooldown/can-run.html
+$dokka.location:world.cepi.momentum.cooldown/TimedCooldown///PointingToDeclaration/-momentum/world.cepi.momentum.cooldown/-timed-cooldown/index.html
+$dokka.location:world.cepi.momentum.cooldown/TimedCooldown/TimedCooldown/#java.time.Duration/PointingToDeclaration/-momentum/world.cepi.momentum.cooldown/-timed-cooldown/-timed-cooldown.html
+$dokka.location:world.cepi.momentum.cooldown/TimedCooldown/canRun/#net.minestom.server.entity.Player/PointingToDeclaration/-momentum/world.cepi.momentum.cooldown/-timed-cooldown/can-run.html
+$dokka.location:world.cepi.momentum.cooldown/TimedCooldown/onRun/#net.minestom.server.entity.Player/PointingToDeclaration/-momentum/world.cepi.momentum.cooldown/-timed-cooldown/on-run.html
 $dokka.location:world.cepi.momentum////PointingToDeclaration/-momentum/world.cepi.momentum/index.html
 $dokka.location:world.cepi.momentum//ability/net.minestom.server.entity.Player#/PointingToDeclaration/-momentum/world.cepi.momentum/ability.html
 $dokka.location:world.cepi.momentum/AbilityManager///PointingToDeclaration/-momentum/world.cepi.momentum/-ability-manager/index.html
@@ -50,4 +70,5 @@ $dokka.location:world.cepi.momentum/Momentum/terminate/#/PointingToDeclaration/
 world.cepi.momentum
 world.cepi.momentum.ability
 world.cepi.momentum.command
+world.cepi.momentum.cooldown
 
