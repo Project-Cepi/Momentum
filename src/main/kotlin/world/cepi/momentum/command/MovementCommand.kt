@@ -31,27 +31,39 @@ object MovementCommand : Command("movement") {
             sender.sendFormattedTranslatableMessage("momentum", "unknown", Component.text(exception.input, NamedTextColor.BLUE))
         }
 
-        addSyntax(set, abilityName) { player, args ->
-            if (player is Player) {
-                val ability = args.get(abilityName)
+        addSyntax(set, abilityName) {
 
-                player.ability = ability
-                player.sendFormattedTranslatableMessage("momentum", "set",
-                    Component.text(ability.name, NamedTextColor.BLUE)
-                        .hoverEvent(Component.text("Click to see more information about this ability!", NamedTextColor.GRAY))
-                        .clickEvent(ClickEvent.suggestCommand("/movement info ${ability.name}")))
+            if (sender !is Player) {
+                return@addSyntax
             }
+
+            val player = sender as Player
+
+            val ability = context.get(abilityName)
+
+            player.ability = ability
+            sender.sendFormattedTranslatableMessage("momentum", "set",
+                Component.text(ability.name, NamedTextColor.BLUE)
+                    .hoverEvent(Component.text("Click to see more information about this ability!", NamedTextColor.GRAY))
+                    .clickEvent(ClickEvent.suggestCommand("/movement info ${ability.name}")))
+
         }
 
-        addSyntax(clear) { player ->
-            if (player is Player) {
-                Momentum.abilityManager[player] = null
-                player.sendFormattedTranslatableMessage("momentum", "clear")
+        addSyntax(clear) {
+
+            if (sender !is Player) {
+                return@addSyntax
             }
+
+            val player = sender as Player
+
+            Momentum.abilityManager[player] = null
+            sender.sendFormattedTranslatableMessage("momentum", "clear")
+
         }
 
-        addSyntax(info, abilityName) { sender, args ->
-            args.get(abilityName).description.trim().forEach { sender.sendFormattedMessage(Component.text(it)) }
+        addSyntax(info, abilityName) {
+            context.get(abilityName).description.trim().forEach { sender.sendFormattedMessage(Component.text(it)) }
         }
     }
 }

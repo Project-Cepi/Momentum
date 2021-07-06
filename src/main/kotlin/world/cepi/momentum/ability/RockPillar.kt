@@ -30,53 +30,56 @@ object RockPillar : MovementAbility() {
         player.isAllowFlying = player.isCreative || player.gameMode == GameMode.SPECTATOR
     }
 
-    private fun run(event: PlayerStartFlyingEvent) {
-        this.cooldown.runIfExpired(event.player) { player ->
-            // cancel the flight first
-            player.isFlying = false
+    fun run(event: PlayerStartFlyingEvent) = with(event) {
 
-            // now get the block to start the pillar at
-            val blockPosition = getBlockAboveGround(player)
+        if (!cooldown.canRun(player)) return
 
-            if (blockPosition != null) {
-                // start off by throwing the player up in the air
-                player.velocity = Vector(0.0, 12.0, 0.0)
+        // cancel the flight first
+        player.isFlying = false
 
-                // now build the pillar!
-                val pillarBlocks = HashSet<BlockPosition>()
+        // now get the block to start the pillar at
+        val blockPosition = getBlockAboveGround(player)
 
+        if (blockPosition != null) {
+            // start off by throwing the player up in the air
+            player.velocity = Vector(0.0, 16.0, 0.0)
+
+            // now build the pillar!
+            val pillarBlocks = HashSet<BlockPosition>()
+
+            MinecraftServer.getSchedulerManager().buildTask {
+                // double check the instance still exists
+                if (player.instance == null) {
+                    return@buildTask
+                }
+
+                // loop and place each block in the given location
+                for (i in 1..5) {
+                    if (player.instance!!.getBlock(blockPosition).isAir) {
+                        pillarBlocks.add(blockPosition.clone())
+                        player.instance!!.setBlock(blockPosition, Block.STONE)
+                        blockPosition.add(0, 1, 0)
+                    } else {
+                        // break if we've hit any non air block so we don't destroy any existing structures
+                        break
+                    }
+                }
+
+                // schedule a task to remove the pillar later
                 MinecraftServer.getSchedulerManager().buildTask {
                     // double check the instance still exists
-                    if (player.instance == null) {
-                        return@buildTask
-                    }
-
-                    // loop and place each block in the given location
-                    for (i in 1..5) {
-                        if (player.instance!!.getBlock(blockPosition).isAir) {
-                            pillarBlocks.add(blockPosition.clone())
-                            player.instance!!.setBlock(blockPosition, Block.STONE)
-                            blockPosition.add(0, 1, 0)
-                        } else {
-                            // break if we've hit any non air block so we don't destroy any existing structures
-                            break
+                    if (player.instance != null) {
+                        // destroy each placed block
+                        pillarBlocks.forEach {
+                            player.instance!!.setBlock(it, Block.AIR)
                         }
                     }
+                }.delay(5, TimeUnit.SECOND).schedule()
+            }.delay(500, TimeUnit.MILLISECOND).schedule()
 
-                    // schedule a task to remove the pillar later
-                    MinecraftServer.getSchedulerManager().buildTask {
-                        // double check the instance still exists
-                        if (player.instance != null) {
-                            // destroy each placed block
-                            pillarBlocks.forEach {
-                                player.instance!!.setBlock(it, Block.AIR)
-                            }
-                        }
-                    }.delay(5, TimeUnit.SECOND).schedule()
-                }.delay(500, TimeUnit.MILLISECOND).schedule()
-            }
         }
     }
+
 
     /**
      * Gets the block below the player that is just above the ground, with a given limit.
