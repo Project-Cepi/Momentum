@@ -86,7 +86,7 @@ object RockPillar : MovementAbility() {
      * @param player the player
      * @return the block position of the block just above the ground, if any
      */
-    private fun getBlockAboveGround(player: Player): BlockPosition? {
+    private fun getBlockAboveGround(player: Player, limit: Int = 5): BlockPosition? {
         // just return null if they're not in an instance
         if (player.instance == null) {
             return null
@@ -95,7 +95,7 @@ object RockPillar : MovementAbility() {
         var iteration = 0
         val lastBlockPosition = player.position.toBlockPosition()
 
-        while (iteration < 5) {
+        while (iteration < limit) {
             if (!player.instance!!.getBlock(lastBlockPosition.subtract(0, 1, 0)).isAir) {
                 return lastBlockPosition.add(0, 1, 0)
             }

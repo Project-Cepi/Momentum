@@ -35,17 +35,19 @@ object DoubleJump : MovementAbility(), EventCallback<PlayerStartFlyingEvent> {
         player.isAllowFlying = player.isCreative || player.gameMode == GameMode.SPECTATOR
     }
 
-    override fun run(event: PlayerStartFlyingEvent) {
-        this.cooldown.runIfExpired(event.player) { player ->
-            // cancel the flying first
-            player.isFlying = false
-            player.refreshFlying(false)
+    override fun run(event: PlayerStartFlyingEvent) = with(event) {
 
-            // apply a jump to the player
-            val vector = event.player.position.direction.multiply(12)
-            vector.y = 10.0
+        if (!cooldown.canRun(player)) return
 
-            player.velocity = vector
-        }
+        // cancel the flying first
+        player.isFlying = false
+        player.refreshFlying(false)
+
+        // apply a jump to the player
+        val vector = event.player.position.direction.multiply(12)
+        vector.y = 10.0
+
+        player.velocity = vector
+
     }
 }

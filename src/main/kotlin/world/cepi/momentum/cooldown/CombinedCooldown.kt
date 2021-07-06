@@ -9,6 +9,4 @@ import net.minestom.server.entity.Player
  */
 class CombinedCooldown(private vararg val cooldowns: Cooldown): Cooldown {
     override fun canRun(player: Player) = this.cooldowns.all { it.canRun(player) }
-
-    override fun onRun(player: Player) = this.cooldowns.forEach { it.onRun(player) }
 }

@@ -13,12 +13,14 @@ object JumpSmash : MovementAbility() {
         node.listenOnly(::run)
     }
 
-    private fun run(event: PlayerStartSneakingEvent) {
-        this.cooldown.runIfExpired(event.player) { player ->
-            player.isFlying = false
-            val vector = player.position.direction.multiply(5)
-            vector.y = -10.0
-            player.velocity = vector
-        }
+    private fun run(event: PlayerStartSneakingEvent) = with(event) {
+
+        if (!cooldown.canRun(player)) return
+
+        player.isFlying = false
+        val vector = player.position.direction.multiply(5)
+        vector.y = -10.0
+        player.velocity = vector
+
     }
 }

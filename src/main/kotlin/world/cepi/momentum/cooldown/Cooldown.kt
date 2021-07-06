@@ -23,15 +23,6 @@ sealed interface Cooldown {
     fun canRun(player: Player): Boolean
 
     /**
-     * A callback indicating that the ability has been used and the cooldown should be reset.
-     *
-     * @param player the player for whom the action was run for
-     */
-    fun onRun(player: Player) {
-        // default to doing nothing as most cooldown implementations don't care
-    }
-
-    /**
      * Runs the provided code for the given player if the cooldown has expired, triggering the [onRun] method if needed.
      *
      * @param player the player
@@ -40,7 +31,6 @@ sealed interface Cooldown {
     fun runIfExpired(player: Player, action: (Player) -> Unit) {
         if (this.canRun(player)) {
             action.invoke(player)
-            this.onRun(player)
         }
     }
 }

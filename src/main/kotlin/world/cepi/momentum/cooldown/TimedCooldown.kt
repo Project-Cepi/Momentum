@@ -15,8 +15,4 @@ class TimedCooldown(private val duration: Duration): Cooldown {
     override fun canRun(player: Player): Boolean {
         return this.lastFiredMap[player.uuid]?.plus(this.duration)?.isBefore(Instant.now()) ?: true
     }
-
-    override fun onRun(player: Player) {
-        this.lastFiredMap[player.uuid] = Instant.now()
-    }
 }
