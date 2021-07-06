@@ -25,6 +25,7 @@ $dokka.location:world.cepi.momentum.ability/RockPillar/apply/#net.minestom.serve
 $dokka.location:world.cepi.momentum.ability/RockPillar/description/#/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-rock-pillar/description.html
 $dokka.location:world.cepi.momentum.ability/RockPillar/initialise/#/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-rock-pillar/initialise.html
 $dokka.location:world.cepi.momentum.ability/RockPillar/remove/#net.minestom.server.entity.Player/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-rock-pillar/remove.html
+$dokka.location:world.cepi.momentum.ability/RockPillar/run/#net.minestom.server.event.player.PlayerStartFlyingEvent/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-rock-pillar/run.html
 $dokka.location:world.cepi.momentum.ability/SuperJump///PointingToDeclaration/-momentum/world.cepi.momentum.ability/-super-jump/index.html
 $dokka.location:world.cepi.momentum.ability/SuperJump/cooldown/#/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-super-jump/cooldown.html
 $dokka.location:world.cepi.momentum.ability/SuperJump/description/#/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-super-jump/description.html
