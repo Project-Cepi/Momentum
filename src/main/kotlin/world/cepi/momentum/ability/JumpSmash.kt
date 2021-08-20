@@ -18,8 +18,7 @@ object JumpSmash : MovementAbility() {
         if (!cooldown.canRun(player)) return
 
         player.isFlying = false
-        val vector = player.position.direction.multiply(5)
-        vector.y = -10.0
+        val vector = player.position.direction().mul(5.0).withY(-10.0)
         player.velocity = vector
 
     }

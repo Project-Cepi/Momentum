@@ -44,8 +44,7 @@ object DoubleJump : MovementAbility(), EventCallback<PlayerStartFlyingEvent> {
         player.refreshFlying(false)
 
         // apply a jump to the player
-        val vector = event.player.position.direction.multiply(12)
-        vector.y = 10.0
+        val vector = event.player.position.direction().mul(12.0).withY(10.0)
 
         player.velocity = vector
 

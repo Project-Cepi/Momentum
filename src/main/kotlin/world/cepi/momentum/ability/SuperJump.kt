@@ -2,10 +2,10 @@ package world.cepi.momentum.ability
 
 import it.unimi.dsi.fastutil.objects.Object2LongMap
 import it.unimi.dsi.fastutil.objects.Object2LongOpenHashMap
+import net.minestom.server.coordinate.Vec
 import net.minestom.server.entity.Player
 import net.minestom.server.event.player.PlayerStartSneakingEvent
 import net.minestom.server.event.player.PlayerStopSneakingEvent
-import net.minestom.server.utils.Vector
 import world.cepi.kstom.event.listenOnly
 import world.cepi.momentum.cooldown.PredicateCooldown
 import java.util.*
@@ -43,8 +43,8 @@ object SuperJump : MovementAbility() {
      * @param milliseconds the amount of seconds the jump has been charging
      * @return the vector for the jump
      */
-    private fun getMultiplier(milliseconds: Long): Vector {
-        return Vector(0.0, (milliseconds / 1000.0).coerceAtMost(10.0), 0.0)
+    private fun getMultiplier(milliseconds: Long): Vec {
+        return Vec(0.0, (milliseconds / 1000.0).coerceAtMost(10.0), 0.0)
     }
 
     private fun startSneakingEvent(event: PlayerStartSneakingEvent) = with(event) {
