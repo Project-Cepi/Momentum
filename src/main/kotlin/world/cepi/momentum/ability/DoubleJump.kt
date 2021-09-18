@@ -37,8 +37,6 @@ object DoubleJump : MovementAbility(), EventCallback<PlayerStartFlyingEvent> {
 
     override fun run(event: PlayerStartFlyingEvent) = with(event) {
 
-        if (!cooldown.canRun(player)) return
-
         // cancel the flying first
         player.isFlying = false
         player.refreshFlying(false)
