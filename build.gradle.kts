@@ -9,7 +9,7 @@ plugins {
 
     // Apply the application plugin to add support for building a jar
     java
-    id("org.jetbrains.dokka") version "1.5.30"
+    id("org.jetbrains.dokka") version "1.5.31"
 }
 
 repositories {
