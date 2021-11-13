@@ -3,6 +3,7 @@ package world.cepi.momentum.ability
 import net.minestom.server.entity.GameMode
 import net.minestom.server.entity.Player
 import net.minestom.server.event.EventCallback
+import net.minestom.server.event.player.PlayerMoveEvent
 import net.minestom.server.event.player.PlayerStartFlyingEvent
 import world.cepi.kstom.event.listenOnly
 import world.cepi.momentum.cooldown.Cooldown
@@ -25,6 +26,9 @@ object DoubleJump : MovementAbility(), EventCallback<PlayerStartFlyingEvent> {
 
     override fun initialise() {
         node.listenOnly(::run)
+        node.listenOnly<PlayerMoveEvent> {
+            if (player.isOnGround) player.isAllowFlying = true
+        }
     }
 
     override fun apply(player: Player) {
@@ -36,15 +40,11 @@ object DoubleJump : MovementAbility(), EventCallback<PlayerStartFlyingEvent> {
     }
 
     override fun run(event: PlayerStartFlyingEvent) = with(event) {
-
         // cancel the flying first
         player.isFlying = false
-        player.refreshFlying(false)
+        player.isAllowFlying = false
 
-        // apply a jump to the player
-        val vector = event.player.position.direction().mul(12.0).withY(10.0)
-
-        player.velocity = vector
+        player.velocity = player.position.direction().mul(12.0).withY(10.0)
 
     }
 }
