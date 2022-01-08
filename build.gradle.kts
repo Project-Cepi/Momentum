@@ -32,10 +32,10 @@ dependencies {
     compileOnly(kotlin("reflect"))
 
     // Compile Minestom into project
-    compileOnly("com.github.Minestom", "Minestom", "2ef8e957a0")
+    compileOnly("com.github.Minestom", "Minestom", "4ee5cbe424")
 
     // KStom
-    compileOnly("com.github.Project-Cepi", "KStom","4a9407ba0a")
+    compileOnly("com.github.Project-Cepi", "KStom","05b5e1f2a1")
 
     // import kotlinx serialization
     compileOnly("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.1")
@@ -57,7 +57,7 @@ tasks {
     }
 
     processResources {
-        filesMatching("extension.json") {
+        filesMatching("META-INF/extension.json") {
             expand(project.properties)
         }
     }
@@ -71,9 +71,9 @@ tasks {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_16
-    targetCompatibility = JavaVersion.VERSION_16
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 val compileKotlin: KotlinCompile by tasks
-compileKotlin.kotlinOptions.jvmTarget = JavaVersion.VERSION_16.toString()
+compileKotlin.kotlinOptions.jvmTarget = JavaVersion.VERSION_17.toString()
