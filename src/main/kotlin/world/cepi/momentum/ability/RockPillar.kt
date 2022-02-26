@@ -99,7 +99,7 @@ object RockPillar : MovementAbility() {
                     rectangle.render(Particle.particle(
                         ParticleType.BLOCK,
                         1,
-                        OffsetAndSpeed(1f, 1f, 1f, 1f),
+                        OffsetAndSpeed(.5f, .5f, .5f, 1f),
                         BlockState(Block.STONE)
                     ), player.viewersAndSelfAsAudience)
                 }
