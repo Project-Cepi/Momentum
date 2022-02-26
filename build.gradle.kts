@@ -35,10 +35,13 @@ dependencies {
     compileOnly("com.github.Minestom", "Minestom", "4ee5cbe424")
 
     // KStom
-    compileOnly("com.github.Project-Cepi", "KStom","05b5e1f2a1")
+    compileOnly("com.github.Project-Cepi", "KStom","531cf7e05c")
 
     // import kotlinx serialization
     compileOnly("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.1")
+
+    // add Particable
+    compileOnly("com.github.Project-Cepi:Particable:e864eb601b")
 
     // Kepi
     compileOnly("com.github.Project-Cepi:Kepi:3d57f76a43")
