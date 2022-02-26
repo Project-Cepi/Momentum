@@ -1,14 +1,24 @@
 package world.cepi.momentum.ability
 
+import net.kyori.adventure.sound.Sound
 import net.minestom.server.MinecraftServer
 import net.minestom.server.coordinate.Vec
 import net.minestom.server.entity.GameMode
 import net.minestom.server.entity.Player
 import net.minestom.server.event.player.PlayerStartFlyingEvent
 import net.minestom.server.instance.block.Block
+import net.minestom.server.sound.SoundEvent
 import net.minestom.server.utils.time.TimeUnit
 import world.cepi.kstom.event.listenOnly
 import world.cepi.kstom.util.toBlockPosition
+import world.cepi.kstom.util.toExactBlockPosition
+import world.cepi.kstom.util.viewersAndSelfAsAudience
+import world.cepi.particle.Particle
+import world.cepi.particle.ParticleType
+import world.cepi.particle.data.OffsetAndSpeed
+import world.cepi.particle.extra.BlockState
+import world.cepi.particle.renderer.Renderer
+import world.cepi.particle.renderer.render
 
 object RockPillar : MovementAbility() {
 
@@ -32,52 +42,71 @@ object RockPillar : MovementAbility() {
 
     fun run(event: PlayerStartFlyingEvent) = with(event) {
 
-        if (!cooldown.canRun(player)) return
+        if (!cooldown.canRun(player)) return@with
 
         // cancel the flight first
         player.isFlying = false
 
         // now get the block to start the pillar at
-        val blockPosition = getBlockAboveGround(player)
+        val blockPosition = getBlockAboveGround(player) ?: return@with
 
-        if (blockPosition != null) {
-            // start off by throwing the player up in the air
-            player.velocity = Vec(0.0, 16.0, 0.0)
+        // start off by throwing the player up in the air
+        player.velocity = Vec(0.0, 16.0, 0.0)
 
-            // now build the pillar!
-            val pillarBlocks = HashSet<Vec>()
+        // now build the pillar!
+        val pillarBlocks = (1..5).map { blockPosition.add(0.0, it.toDouble() - 1, 0.0) }
 
+        player.viewersAndSelfAsAudience.playSound(Sound.sound(SoundEvent.ENTITY_IRON_GOLEM_ATTACK, Sound.Source.MASTER, 2f, 0.5f))
+
+        val rectangle = Renderer.fixedRectangle(blockPosition, pillarBlocks.last().add(1.0, 1.0, 1.0))
+
+        rectangle.render(Particle.particle(
+            ParticleType.BLOCK,
+            1,
+            OffsetAndSpeed(),
+            BlockState(Block.STONE)
+        ), player.viewersAndSelfAsAudience)
+
+        MinecraftServer.getSchedulerManager().buildTask {
+            // double check the instance still exists
+            if (player.instance == null) {
+                return@buildTask
+            }
+
+            // loop and place each block in the given location
+            for (blockPos in pillarBlocks) {
+                if (player.instance!!.getBlock(blockPos).isAir) {
+                    player.instance!!.setBlock(blockPos, Block.STONE)
+                } else {
+                    // break if we've hit any non air block so we don't destroy any existing structures
+                    break
+                }
+            }
+
+            player.viewersAndSelfAsAudience.playSound(Sound.sound(SoundEvent.ENTITY_IRON_GOLEM_DAMAGE, Sound.Source.MASTER, 1f, 0.5f))
+
+            // schedule a task to remove the pillar later
             MinecraftServer.getSchedulerManager().buildTask {
                 // double check the instance still exists
-                if (player.instance == null) {
-                    return@buildTask
-                }
-
-                // loop and place each block in the given location
-                for (i in 1..5) {
-                    if (player.instance!!.getBlock(blockPosition).isAir) {
-                        pillarBlocks.add(blockPosition)
-                        player.instance!!.setBlock(blockPosition, Block.STONE)
-                        blockPosition.add(0.0, 1.0, 0.0)
-                    } else {
-                        // break if we've hit any non air block so we don't destroy any existing structures
-                        break
+                if (player.instance != null) {
+                    // destroy each placed block
+                    pillarBlocks.forEach {
+                        player.instance!!.setBlock(it, Block.AIR)
                     }
+
+                    player.viewersAndSelfAsAudience.playSound(Sound.sound(SoundEvent.ENTITY_IRON_GOLEM_REPAIR, Sound.Source.MASTER, 1f, 0.5f))
+
+                    rectangle.render(Particle.particle(
+                        ParticleType.BLOCK,
+                        1,
+                        OffsetAndSpeed(1f, 1f, 1f, 1f),
+                        BlockState(Block.STONE)
+                    ), player.viewersAndSelfAsAudience)
                 }
+            }.delay(800, TimeUnit.MILLISECOND).schedule()
+        }.delay(500, TimeUnit.MILLISECOND).schedule()
 
-                // schedule a task to remove the pillar later
-                MinecraftServer.getSchedulerManager().buildTask {
-                    // double check the instance still exists
-                    if (player.instance != null) {
-                        // destroy each placed block
-                        pillarBlocks.forEach {
-                            player.instance!!.setBlock(it, Block.AIR)
-                        }
-                    }
-                }.delay(5, TimeUnit.SECOND).schedule()
-            }.delay(500, TimeUnit.MILLISECOND).schedule()
 
-        }
     }
 
 
@@ -92,15 +121,10 @@ object RockPillar : MovementAbility() {
             return null
         }
 
-        var iteration = 0
-        val lastBlockPosition = player.position.asVec().toBlockPosition().asVec()
-
-        while (iteration < limit) {
-            if (!player.instance!!.getBlock(lastBlockPosition.sub(.0, 1.0, 0.0)).isAir) {
-                return lastBlockPosition.add(.0, 1.0, .0)
+        repeat(limit) {
+            if (player.instance!!.getBlock(player.position.sub(0.0, it.toDouble(), 0.0)).isSolid) {
+                return player.position.sub(0.0, it - 1.0, 0.0).asVec().toExactBlockPosition().asVec()
             }
-
-            iteration++
         }
 
         return null
