@@ -9,8 +9,11 @@ $dokka.location:world.cepi.momentum.ability/DoubleJump/initialise/#/PointingToDe
 $dokka.location:world.cepi.momentum.ability/DoubleJump/remove/#net.minestom.server.entity.Player/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-double-jump/remove.html
 $dokka.location:world.cepi.momentum.ability/DoubleJump/run/#net.minestom.server.event.player.PlayerStartFlyingEvent/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-double-jump/run.html
 $dokka.location:world.cepi.momentum.ability/JumpSmash///PointingToDeclaration/-momentum/world.cepi.momentum.ability/-jump-smash/index.html
+$dokka.location:world.cepi.momentum.ability/JumpSmash/apply/#net.minestom.server.entity.Player/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-jump-smash/apply.html
 $dokka.location:world.cepi.momentum.ability/JumpSmash/cooldown/#/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-jump-smash/cooldown.html
 $dokka.location:world.cepi.momentum.ability/JumpSmash/initialise/#/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-jump-smash/initialise.html
+$dokka.location:world.cepi.momentum.ability/JumpSmash/remove/#net.minestom.server.entity.Player/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-jump-smash/remove.html
+$dokka.location:world.cepi.momentum.ability/JumpSmash/run/#net.minestom.server.event.player.PlayerStartFlyingEvent/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-jump-smash/run.html
 $dokka.location:world.cepi.momentum.ability/MovementAbility///PointingToDeclaration/-momentum/world.cepi.momentum.ability/-movement-ability/index.html
 $dokka.location:world.cepi.momentum.ability/MovementAbility/apply/#net.minestom.server.entity.Player/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-movement-ability/apply.html
 $dokka.location:world.cepi.momentum.ability/MovementAbility/cooldown/#/PointingToDeclaration/-momentum/world.cepi.momentum.ability/-movement-ability/cooldown.html
