@@ -8,6 +8,7 @@ import net.minestom.server.entity.Player
 import net.minestom.server.event.player.PlayerStartFlyingEvent
 import net.minestom.server.instance.block.Block
 import net.minestom.server.sound.SoundEvent
+import net.minestom.server.tag.Tag
 import net.minestom.server.utils.time.TimeUnit
 import world.cepi.kstom.event.listenOnly
 import world.cepi.kstom.util.toBlockPosition
@@ -15,8 +16,10 @@ import world.cepi.kstom.util.toExactBlockPosition
 import world.cepi.kstom.util.viewersAndSelfAsAudience
 import world.cepi.particle.Particle
 import world.cepi.particle.ParticleType
+import world.cepi.particle.data.Color
 import world.cepi.particle.data.OffsetAndSpeed
 import world.cepi.particle.extra.BlockState
+import world.cepi.particle.extra.Dust
 import world.cepi.particle.renderer.Renderer
 import world.cepi.particle.renderer.render
 
@@ -73,10 +76,23 @@ object RockPillar : MovementAbility() {
                 return@buildTask
             }
 
+            val blockUnder = player.instance!!.getBlock(pillarBlocks.first().sub(0.0, 1.0, 0.0))
+
+            if (blockUnder.hasTag(Tag.Byte("rockPillar")) || blockUnder.isAir) {
+                rectangle.render(Particle.particle(
+                    ParticleType.DUST,
+                    1,
+                    OffsetAndSpeed(),
+                    Dust(1f, 0f, 0f, 1f)
+                ), player.viewersAndSelfAsAudience)
+
+                return@buildTask
+            }
+
             // loop and place each block in the given location
             for (blockPos in pillarBlocks) {
                 if (player.instance!!.getBlock(blockPos).isAir) {
-                    player.instance!!.setBlock(blockPos, Block.STONE)
+                    player.instance!!.setBlock(blockPos, Block.STONE.withTag(Tag.Byte("rockPillar"), 1))
                 } else {
                     // break if we've hit any non air block so we don't destroy any existing structures
                     break
@@ -99,11 +115,11 @@ object RockPillar : MovementAbility() {
                     rectangle.render(Particle.particle(
                         ParticleType.BLOCK,
                         1,
-                        OffsetAndSpeed(.5f, .5f, .5f, 1f),
+                        OffsetAndSpeed(0f, 0f, 0f, 1f),
                         BlockState(Block.STONE)
                     ), player.viewersAndSelfAsAudience)
                 }
-            }.delay(800, TimeUnit.MILLISECOND).schedule()
+            }.delay(4000, TimeUnit.MILLISECOND).schedule()
         }.delay(500, TimeUnit.MILLISECOND).schedule()
 
 
