@@ -11,6 +11,7 @@ import net.minestom.server.sound.SoundEvent
 import net.minestom.server.utils.time.TimeUnit
 import world.cepi.kstom.Manager
 import world.cepi.kstom.event.listenOnly
+import world.cepi.kstom.util.playSoundToViewersAndSelf
 import world.cepi.kstom.util.viewersAndSelfAsAudience
 import world.cepi.momentum.cooldown.PredicateCooldown
 
@@ -40,7 +41,7 @@ object JumpSmash : MovementAbility(), EventCallback<PlayerStartFlyingEvent> {
         player.isAllowFlying = false
 
         player.velocity = player.position.direction().mul(5.0).withY(15.0)
-        player.viewersAndSelfAsAudience.playSound(Sound.sound(SoundEvent.ENTITY_ENDER_DRAGON_SHOOT, Sound.Source.MASTER, 1f, 2f))
+        player.playSoundToViewersAndSelf(Sound.sound(SoundEvent.ENTITY_ENDER_DRAGON_SHOOT, Sound.Source.MASTER, 1f, 2f))
 
         Manager.scheduler.buildTask {
             player.velocity = player.position.direction().mul(5.0).withY(-15.0)

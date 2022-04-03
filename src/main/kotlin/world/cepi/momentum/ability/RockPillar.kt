@@ -12,9 +12,7 @@ import net.minestom.server.tag.Tag
 import net.minestom.server.utils.time.TimeUnit
 import world.cepi.energy.energy
 import world.cepi.kstom.event.listenOnly
-import world.cepi.kstom.util.toBlockPosition
-import world.cepi.kstom.util.toExactBlockPosition
-import world.cepi.kstom.util.viewersAndSelfAsAudience
+import world.cepi.kstom.util.*
 import world.cepi.particle.Particle
 import world.cepi.particle.ParticleType
 import world.cepi.particle.data.Color
@@ -69,7 +67,7 @@ object RockPillar : MovementAbility() {
                 Dust(1f, 0f, 0f, 1f)
             ), player.viewersAndSelfAsAudience)
 
-            player.viewersAndSelfAsAudience.playSound(Sound.sound(SoundEvent.BLOCK_NOTE_BLOCK_DIDGERIDOO, Sound.Source.MASTER, 1f, 0.5f))
+            player.playSoundToViewersAndSelf(Sound.sound(SoundEvent.BLOCK_NOTE_BLOCK_DIDGERIDOO, Sound.Source.MASTER, 1f, 0.5f))
 
             return
         }
@@ -77,7 +75,7 @@ object RockPillar : MovementAbility() {
         // start off by throwing the player up in the air
         player.velocity = Vec(0.0, 16.0, 0.0)
 
-        player.viewersAndSelfAsAudience.playSound(Sound.sound(SoundEvent.ENTITY_IRON_GOLEM_ATTACK, Sound.Source.MASTER, 2f, 0.5f))
+        player.playSoundToViewersAndSelf(Sound.sound(SoundEvent.ENTITY_IRON_GOLEM_ATTACK, Sound.Source.MASTER, 2f, 0.5f), player.position)
 
         rectangle.render(Particle.particle(
             ParticleType.BLOCK,
@@ -104,7 +102,7 @@ object RockPillar : MovementAbility() {
 
             player.energy -= 14
 
-            player.viewersAndSelfAsAudience.playSound(Sound.sound(SoundEvent.ENTITY_IRON_GOLEM_DAMAGE, Sound.Source.MASTER, 1f, 0.5f))
+            player.playSoundToViewersAndSelf(Sound.sound(SoundEvent.ENTITY_IRON_GOLEM_DAMAGE, Sound.Source.MASTER, 1f, 0.5f) )
 
             // schedule a task to remove the pillar later
             MinecraftServer.getSchedulerManager().buildTask {
@@ -115,7 +113,7 @@ object RockPillar : MovementAbility() {
                         player.instance!!.setBlock(it, Block.AIR)
                     }
 
-                    player.viewersAndSelfAsAudience.playSound(Sound.sound(SoundEvent.ENTITY_IRON_GOLEM_REPAIR, Sound.Source.MASTER, 1f, 0.5f))
+                    player.playSoundToViewersAndSelf(Sound.sound(SoundEvent.ENTITY_IRON_GOLEM_REPAIR, Sound.Source.MASTER, 1f, 0.5f))
 
                     rectangle.render(Particle.particle(
                         ParticleType.BLOCK,

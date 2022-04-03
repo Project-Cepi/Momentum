@@ -7,13 +7,18 @@ import net.minestom.server.event.EventCallback
 import net.minestom.server.event.player.PlayerMoveEvent
 import net.minestom.server.event.player.PlayerStartFlyingEvent
 import net.minestom.server.sound.SoundEvent
+import world.cepi.energy.energy
 import world.cepi.kstom.event.listenOnly
+import world.cepi.kstom.util.playSound
+import world.cepi.kstom.util.playSoundToViewersAndSelf
 import world.cepi.kstom.util.viewersAndSelfAsAudience
 import world.cepi.momentum.cooldown.Cooldown
 import world.cepi.momentum.cooldown.PredicateCooldown
 import world.cepi.particle.Particle
 import world.cepi.particle.ParticleType
+import world.cepi.particle.data.Color
 import world.cepi.particle.data.OffsetAndSpeed
+import world.cepi.particle.extra.Dust
 import world.cepi.particle.renderer.Renderer
 import world.cepi.particle.renderer.render
 import world.cepi.particle.renderer.translate
@@ -35,9 +40,6 @@ object DoubleJump : MovementAbility(), EventCallback<PlayerStartFlyingEvent> {
 
     override fun initialise() {
         node.listenOnly(::run)
-        node.listenOnly<PlayerMoveEvent> {
-            if (player.isOnGround) player.isAllowFlying = true
-        }
     }
 
     override fun apply(player: Player) {
@@ -51,12 +53,21 @@ object DoubleJump : MovementAbility(), EventCallback<PlayerStartFlyingEvent> {
     override fun run(event: PlayerStartFlyingEvent) = with(event) {
         // cancel the flying first
         player.isFlying = false
-        player.isAllowFlying = false
 
-        player.viewersAndSelfAsAudience.playSound(Sound.sound(SoundEvent.ENTITY_BAT_TAKEOFF, Sound.Source.MASTER, 1f, 2f))
         val circle = Renderer.circle(1.0).translate(player.position.asVec())
+
+        if (player.energy < 8) {
+            val failParticle = Particle.particle(ParticleType.DUST, 1, OffsetAndSpeed(), Dust(1f, 0f, 0f, 1f))
+            player.playSoundToViewersAndSelf(Sound.sound(SoundEvent.BLOCK_NOTE_BLOCK_DIDGERIDOO, Sound.Source.MASTER, 1f, 0.5f), player.position)
+            circle.render(failParticle, player.viewersAndSelfAsAudience)
+            return
+        }
+
+        player.energy -= 8
+
         val particle = Particle.particle(ParticleType.CLOUD, 1, OffsetAndSpeed())
 
+        player.playSoundToViewersAndSelf(Sound.sound(SoundEvent.ENTITY_BAT_TAKEOFF, Sound.Source.MASTER, 1f, 2f), player.position)
         circle.render(particle, player.viewersAndSelfAsAudience)
 
         player.velocity = player.position.direction().mul(12.0).withY(10.0)
