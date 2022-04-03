@@ -10,6 +10,7 @@ import net.minestom.server.instance.block.Block
 import net.minestom.server.sound.SoundEvent
 import net.minestom.server.tag.Tag
 import net.minestom.server.utils.time.TimeUnit
+import world.cepi.energy.energy
 import world.cepi.kstom.event.listenOnly
 import world.cepi.kstom.util.toBlockPosition
 import world.cepi.kstom.util.toExactBlockPosition
@@ -53,15 +54,30 @@ object RockPillar : MovementAbility() {
         // now get the block to start the pillar at
         val blockPosition = getBlockAboveGround(player) ?: return@with
 
+        // generate the position blocks
+        val pillarBlocks = (1..5).map { blockPosition.add(0.0, it.toDouble() - 1, 0.0) }
+
+        val rectangle = Renderer.fixedRectangle(blockPosition, pillarBlocks.last().add(1.0, 1.0, 1.0))
+
+        val blockUnder = player.instance!!.getBlock(pillarBlocks.first().sub(0.0, 1.0, 0.0))
+
+        if (blockUnder.isAir || player.energy < 14) {
+            rectangle.render(Particle.particle(
+                ParticleType.DUST,
+                1,
+                OffsetAndSpeed(),
+                Dust(1f, 0f, 0f, 1f)
+            ), player.viewersAndSelfAsAudience)
+
+            player.viewersAndSelfAsAudience.playSound(Sound.sound(SoundEvent.BLOCK_NOTE_BLOCK_DIDGERIDOO, Sound.Source.MASTER, 1f, 0.5f))
+
+            return
+        }
+
         // start off by throwing the player up in the air
         player.velocity = Vec(0.0, 16.0, 0.0)
 
-        // now build the pillar!
-        val pillarBlocks = (1..5).map { blockPosition.add(0.0, it.toDouble() - 1, 0.0) }
-
         player.viewersAndSelfAsAudience.playSound(Sound.sound(SoundEvent.ENTITY_IRON_GOLEM_ATTACK, Sound.Source.MASTER, 2f, 0.5f))
-
-        val rectangle = Renderer.fixedRectangle(blockPosition, pillarBlocks.last().add(1.0, 1.0, 1.0))
 
         rectangle.render(Particle.particle(
             ParticleType.BLOCK,
@@ -76,28 +92,17 @@ object RockPillar : MovementAbility() {
                 return@buildTask
             }
 
-            val blockUnder = player.instance!!.getBlock(pillarBlocks.first().sub(0.0, 1.0, 0.0))
-
-            if (blockUnder.hasTag(Tag.Byte("rockPillar")) || blockUnder.isAir) {
-                rectangle.render(Particle.particle(
-                    ParticleType.DUST,
-                    1,
-                    OffsetAndSpeed(),
-                    Dust(1f, 0f, 0f, 1f)
-                ), player.viewersAndSelfAsAudience)
-
-                return@buildTask
-            }
-
             // loop and place each block in the given location
             for (blockPos in pillarBlocks) {
                 if (player.instance!!.getBlock(blockPos).isAir) {
-                    player.instance!!.setBlock(blockPos, Block.STONE.withTag(Tag.Byte("rockPillar"), 1))
+                    player.instance!!.setBlock(blockPos, Block.STONE)
                 } else {
                     // break if we've hit any non air block so we don't destroy any existing structures
                     break
                 }
             }
+
+            player.energy -= 14
 
             player.viewersAndSelfAsAudience.playSound(Sound.sound(SoundEvent.ENTITY_IRON_GOLEM_DAMAGE, Sound.Source.MASTER, 1f, 0.5f))
 

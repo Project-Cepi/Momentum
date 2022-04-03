@@ -5,7 +5,8 @@
   "dependencies": [
     "Kepi",
     "KStom",
-    "Particable"
+    "Particable",
+    "EnergyExtension"
   ],
   "meta": {
     "downloadURL": "https://github.com/Project-Cepi/Momentum/releases/download/latest/Momentum-0.1.0-all.jar"

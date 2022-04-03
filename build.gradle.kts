@@ -35,13 +35,16 @@ dependencies {
     compileOnly("com.github.Minestom", "Minestom", "4ee5cbe424")
 
     // KStom
-    compileOnly("com.github.Project-Cepi", "KStom","531cf7e05c")
+    compileOnly("com.github.Project-Cepi", "KStom","6ed81b8936")
 
     // import kotlinx serialization
-    compileOnly("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.1")
+    compileOnly("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
 
     // add Particable
-    compileOnly("com.github.Project-Cepi:Particable:e864eb601b")
+    compileOnly("com.github.Project-Cepi:Particable:acea414be2")
+
+    // add EnergyExtension
+    compileOnly("com.github.Project-Cepi:EnergyExtension:c856364913")
 
     // Kepi
     compileOnly("com.github.Project-Cepi:Kepi:3d57f76a43")
