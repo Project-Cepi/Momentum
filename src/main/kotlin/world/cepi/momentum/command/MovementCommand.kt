@@ -40,11 +40,10 @@ object MovementCommand : Kommand({
 
     }
 
-    syntax(clear).onlyPlayers {
+    syntax(clear) {
         Momentum.abilityManager[player] = null
         sender.sendFormattedTranslatableMessage("momentum", "clear")
-
-    }
+    }.onlyPlayers()
 
     syntax(info, abilityName) {
         (!abilityName).description.trim().forEach { sender.sendFormattedMessage(Component.text(it)) }
